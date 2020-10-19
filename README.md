@@ -1,5 +1,7 @@
 # README
 
+[![Codeship Status for dpaulsen/giraffe-gambit](https://app.codeship.com/projects/b9403c30-ece0-47d1-945e-652d8f6aeb24/status?branch=master)](https://app.codeship.com/projects/414696)
+
 ~~~THE GREAT GIRAFFE GAMBIT~~~
 
 Description: A review site for rating Giraffes.  
