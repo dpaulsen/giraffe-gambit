@@ -18,10 +18,11 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
+
+      expect(returned_json.length).to eq 2
   
       expect(returned_json[0]["name"]).to eq "Hugo"
   
-      expect(returned_json.length).to eq 2
       expect(returned_json[1]["name"]).to eq "Penelope"
     end
   end
