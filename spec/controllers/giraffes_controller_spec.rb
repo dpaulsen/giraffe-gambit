@@ -93,4 +93,5 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       expect(returned_json).to_not be_kind_of(Array)
       expect(returned_json["errors"]).to eq "Name can't be blank and Description can't be blank"
     end
+  end
 end
