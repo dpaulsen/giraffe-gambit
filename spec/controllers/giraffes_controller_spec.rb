@@ -28,7 +28,7 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
   end
 
   describe "GET#show" do
-    it "should return an individual giraffe with it's name and description" do
+    it "should return an individual giraffe with its name and description" do
 
       get :show, params: {id: first_giraffe.id}
       returned_json = JSON.parse(response.body)
