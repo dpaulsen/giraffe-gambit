@@ -42,4 +42,56 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       expect(returned_json["description"]).to eq first_giraffe.description
     end
   end
+
+  describe "POST#create" do
+    it "creates a new giraffe" do
+      post_json = {
+        giraffe: {
+          name: "Shelly",
+          description: "gnarly giraffe"
+        }
+      }
+
+      prev_count = Giraffe.count
+      post(:create, params: post_json, format: :json)
+      expect(Giraffe.count).to eq(prev_count + 1)
+    end
+
+    it "returns the json of the newly posted giraffe" do
+      post_json = {
+        giraffe: {
+          name: "Shelly",
+          description: "gnarly giraffe"
+        }
+      }
+  
+      post(:create, params: post_json, format: :json)
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+  
+      expect(returned_json).to be_kind_of(Hash)
+      expect(returned_json).to_not be_kind_of(Array)
+      expect(returned_json["giraffe"]["name"]).to eq "Shelly"
+      expect(returned_json["giraffe"]["description"]).to eq "gnarly giraffe"
+    end
+
+    it "returns errors if the input is not valid" do
+      post_json = {
+        giraffe: {
+          name: "",
+          description: ""
+        }
+      }
+  
+      post(:create, params: post_json, format: :json)
+      returned_json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+  
+      expect(returned_json).to be_kind_of(Hash)
+      expect(returned_json).to_not be_kind_of(Array)
+      expect(returned_json["errors"]).to eq "Name can't be blank and Description can't be blank"
+    end
+  end
 end
