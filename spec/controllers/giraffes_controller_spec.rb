@@ -27,6 +27,22 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
     end
   end
 
+  describe "GET#show" do
+    it "should return an individual giraffe with its name and description" do
+
+      get :show, params: {id: first_giraffe.id}
+      returned_json = JSON.parse(response.body)
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json.length).to eq 3
+      expect(returned_json["name"]).to eq first_giraffe.name
+      expect(returned_json["id"]).to eq first_giraffe.id
+      expect(returned_json["description"]).to eq first_giraffe.description
+    end
+  end
+
   describe "POST#create" do
     it "creates a new giraffe" do
       post_json = {
@@ -77,5 +93,4 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       expect(returned_json).to_not be_kind_of(Array)
       expect(returned_json["errors"]).to eq "Name can't be blank and Description can't be blank"
     end
-  end
 end

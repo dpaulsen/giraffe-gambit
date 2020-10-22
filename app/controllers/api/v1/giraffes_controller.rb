@@ -3,6 +3,11 @@ class Api::V1::GiraffesController < ApiController
     render json: Giraffe.all
   end
 
+  def show
+    giraffe = Giraffe.find(params[:id])
+    render json: giraffe, serializer: GiraffeShowSerializer 
+  end
+
   def create
     giraffe = Giraffe.new(giraffe_params)
 
