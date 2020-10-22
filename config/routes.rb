@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   get '/giraffes', to: 'homes#index'
+  get '/giraffes/new', to: 'homes#index'
   get '/giraffes/:id', to: "homes#index"
 
   devise_for :users
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do
-      resources :giraffes, only: [:index, :show]
+      resources :giraffes, only: [:index, :show, :create]
     end
   end
 end
