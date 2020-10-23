@@ -7,7 +7,7 @@ const GiraffeShowPage = (props) => {
     id: null,
     name: "",
     description: "",
-    reviews: []
+    reviews: [],
   });
   const id = props.match.params.id;
 
@@ -37,7 +37,7 @@ const GiraffeShowPage = (props) => {
       </div>
       <div>
         <p> Reviews: </p>
-        <ReviewsList reviews = {giraffe.reviews}/>
+        <ReviewsList reviews={giraffe.reviews} />
       </div>
       <hr />
       <Link to="/giraffes">Back to Herd</Link>
