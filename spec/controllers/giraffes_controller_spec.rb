@@ -10,6 +10,17 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
     description: "this little gal loves to run"
   ) }
 
+  let!(:first_review){ Review.create(
+    giraffe: first_giraffe,
+    rating: 5,
+    comment: "Hugo is awesome!!!"
+  )}
+  let!(:second_review){ Review.create(
+    giraffe: first_giraffe,
+    rating: 3
+  )}
+
+
   describe "GET#index" do
     it "should return a list of all the giraffes" do
 
@@ -36,10 +47,19 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json.length).to eq 3
+      expect(returned_json.length).to eq 4
       expect(returned_json["name"]).to eq first_giraffe.name
       expect(returned_json["id"]).to eq first_giraffe.id
       expect(returned_json["description"]).to eq first_giraffe.description
+      
+      expect(returned_json["reviews"].first["rating"]).to eq 5
+      expect(returned_json["reviews"].first["comment"]).to eq "Hugo is awesome!!!"
+      expect(returned_json["reviews"].first["giraffe_id"]).to eq first_giraffe.id
+  
+      expect(returned_json["reviews"].second["rating"]).to eq 3
+      expect(returned_json["reviews"].second["comment"]).to eq nil
+      expect(returned_json["reviews"].second["giraffe_id"]).to eq first_giraffe.id
+
     end
   end
 
