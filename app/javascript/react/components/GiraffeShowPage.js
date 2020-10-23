@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ReviewNewForm from "./ReviewNewForm";
+
 
 const GiraffeShowPage = (props) => {
   const [giraffe, setGiraffe] = useState({});
-  const id = props.match.params.id;
-
+  const id = props.match.params.id
+  
   useEffect(() => {
     fetch(`/api/v1/giraffes/${id}`)
       .then((response) => {
@@ -30,6 +32,7 @@ const GiraffeShowPage = (props) => {
         <p>{giraffe.description}</p>
       </div>
       <hr />
+      <ReviewNewForm giraffeId={id}/>
       <Link to="/giraffes">Back to Herd</Link>
     </div>
   );

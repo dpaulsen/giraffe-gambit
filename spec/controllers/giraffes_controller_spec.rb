@@ -1,18 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::GiraffesController, type: :controller do
-  let!(:first_giraffe) { Giraffe.create(
-    name: "Hugo",
-    description: "this big guy loves to eat leaves"
-  ) }
-  let!(:second_giraffe) { Giraffe.create(
-    name: "Penelope",
-    description: "this little gal loves to run"
-  ) }
-
   describe "GET#index" do
     it "should return a list of all the giraffes" do
-
+      FactoryBot.create(:giraffe, name: "Hugo")
+      FactoryBot.create(:giraffe, name: "Penelope")
+      
       get :index
       returned_json = JSON.parse(response.body)
 
@@ -29,7 +22,8 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
   describe "GET#show" do
     it "should return an individual giraffe with its name and description" do
-
+      first_giraffe = FactoryBot.create(:giraffe)
+      
       get :show, params: {id: first_giraffe.id}
       returned_json = JSON.parse(response.body)
 
