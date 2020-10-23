@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :reviews
+  has_many :giraffes 
+  
   enum role: [:member , :admin ]
   after_initialize :set_default_role, :if => :new_record?
 
