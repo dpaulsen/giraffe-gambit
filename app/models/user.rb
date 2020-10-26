@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :giraffes
   has_many :reviews
+  has_many :votes
+  has_many :voted_reviews, through: :votes , source: :review
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
