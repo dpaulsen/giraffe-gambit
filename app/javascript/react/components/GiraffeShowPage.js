@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ReviewNewForm from "./ReviewNewForm";
-
+import ReviewsList from "./ReviewsList";
 
 const GiraffeShowPage = (props) => {
-  const [giraffe, setGiraffe] = useState({});
-  const id = props.match.params.id
-  
+  const [giraffe, setGiraffe] = useState({
+    id: null,
+    name: "",
+    description: "",
+    reviews: [],
+  });
+  const id = props.match.params.id;
+
   useEffect(() => {
     fetch(`/api/v1/giraffes/${id}`)
       .then((response) => {
@@ -30,6 +34,10 @@ const GiraffeShowPage = (props) => {
       <div>
         <h3>{giraffe.name}</h3>
         <p>{giraffe.description}</p>
+      </div>
+      <div>
+        <p> Reviews: </p>
+        <ReviewsList reviews={giraffe.reviews} />
       </div>
       <hr />
       <ReviewNewForm giraffeId={id}/>
