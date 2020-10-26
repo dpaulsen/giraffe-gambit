@@ -11,6 +11,7 @@ const GiraffeShowPage = (props) => {
     reviews: [],
   });
   const [errors, setErrors] = useState("");
+  const [clearForm, setClearForm] = useState(false);
   const id = props.match.params.id;
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const GiraffeShowPage = (props) => {
     })
       .then((response) => {
         if (response.ok) {
+          setClearForm(true);
           return response;
         } else {
           let errorMessage = `${response.status} (${response.statusText})`,
@@ -81,6 +83,7 @@ const GiraffeShowPage = (props) => {
         giraffeId={id}
         errors={errors}
         addNewReview={addNewReview}
+        clearForm={clearForm}
       />
       <Link to="/giraffes">Back to Herd</Link>
     </div>

@@ -16,13 +16,19 @@ const ReviewNewForm = (props) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    props.addNewReview(formPayLoad);
+  const clearForm = () => {
     setFormFields({
       rating: "",
       comment: "",
     });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.addNewReview(formPayLoad);
+    if (props.clearForm === true) {
+      clearForm();
+    }
   };
 
   if (props.errors !== "") {
