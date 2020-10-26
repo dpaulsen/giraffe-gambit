@@ -6,9 +6,8 @@ const ReviewNewForm = (props) => {
     comment: "",
   });
 
-  const [errors, setErrors] = useState("");
-
   let errorsDiv = null;
+  let formPayLoad = { review: formFields };
 
   const handleChange = (event) => {
     setFormFields({
@@ -19,44 +18,17 @@ const ReviewNewForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    let formPayLoad = { review: formFields };
-  
-    fetch(`/api/v1/giraffes/${props.giraffeId}/reviews`, {
-      credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(formPayLoad),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.review) {
-          // need reviews index completed first 
-        } else if (body.errors) {
-          setErrors(body.errors);
-        } else {
-          console.error("ERROR: Unexpected server response");
-        }
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    props.addNewReview(formPayLoad);
+    setFormFields({
+      rating: "",
+      comment: "",
+    });
   };
 
-  if (errors !== "") {
+  if (props.errors !== "") {
     errorsDiv = (
       <div className="grid-x align-center">
-        <div className="callout alert cell shrink">{errors}</div>
+        <div className="callout alert cell shrink">{props.errors}</div>
       </div>
     );
   }
@@ -80,10 +52,7 @@ const ReviewNewForm = (props) => {
           />
         </div>
         <div className="grid-x grid-margin-x align-middle">
-          <label
-            className="cell small-2 text-right"
-            htmlFor="comment"
-          >
+          <label className="cell small-2 text-right" htmlFor="comment">
             Comment:
           </label>
           <input
@@ -97,11 +66,7 @@ const ReviewNewForm = (props) => {
         </div>
 
         <div className="grid-x align-center">
-          <input
-            className="cell shrink"
-            type="submit"
-            value="Add Review"
-          />
+          <input className="cell shrink" type="submit" value="Add Review" />
         </div>
       </form>
     </div>
