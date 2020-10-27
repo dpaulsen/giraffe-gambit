@@ -8,4 +8,8 @@ FactoryBot.define do
     sequence(:username)  { |n| "testusername#{n}" }
   end
 
+  factory :giraffe do
+    name { 'name' }
+    description { 'description' }
+  end
 end

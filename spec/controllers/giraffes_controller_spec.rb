@@ -23,15 +23,15 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
   describe "GET#index" do
     it "should return a list of all the giraffes" do
-
+     
       get :index
       returned_json = JSON.parse(response.body)
 
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
-
+    
       expect(returned_json.length).to eq 2
-  
+    
       expect(returned_json[0]["name"]).to eq "Hugo"
   
       expect(returned_json[1]["name"]).to eq "Penelope"
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
   describe "GET#show" do
     it "should return an individual giraffe with its name and description" do
-
+      
       get :show, params: {id: first_giraffe.id}
       returned_json = JSON.parse(response.body)
 
