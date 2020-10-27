@@ -15,3 +15,10 @@
  *= require foundation_and_overrides
 
  */
+ 
+ .profile-photo {
+   max-height: 50px;
+   max-width: 50px;
+   border: solid 2px black;
+   border-radius: 2em;
+ }
