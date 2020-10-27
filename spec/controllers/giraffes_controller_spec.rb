@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::GiraffesController, type: :controller do
-  let!(:test_user) { FactoryBot.create(:user)}
+  let!(:test_user) { FactoryBot.create(:user) }
 
   let!(:first_giraffe) { FactoryBot.create(:giraffe, name: "Hugo", user: test_user) }
   let!(:second_giraffe) { FactoryBot.create(:giraffe, name: "Penelope", user: test_user) }
@@ -71,6 +71,8 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
         }
       }
 
+      sign_in test_user
+
       prev_count = Giraffe.count
       post(:create, params: post_json, format: :json)
       expect(Giraffe.count).to eq(prev_count + 1)
@@ -83,16 +85,18 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
           description: "gnarly giraffe"
         }
       }
+
+      sign_in test_user
   
       post(:create, params: post_json, format: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
-  
+      
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      expect(returned_json["giraffe"]["name"]).to eq "Shelly"
-      expect(returned_json["giraffe"]["description"]).to eq "gnarly giraffe"
+      expect(returned_json["name"]).to eq "Shelly"
+      expect(returned_json["description"]).to eq "gnarly giraffe"
     end
 
     it "returns errors if the input is not valid" do
@@ -102,12 +106,14 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
           description: ""
         }
       }
+
+      sign_in test_user
   
       post(:create, params: post_json, format: :json)
       returned_json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
-  
+      
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
       expect(returned_json["errors"]).to eq "Name can't be blank and Description can't be blank"

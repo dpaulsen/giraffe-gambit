@@ -15,7 +15,7 @@ const GiraffeShowPage = (props) => {
     message: "",
     reivewId: null,
   });
-  
+
   const [errors, setErrors] = useState("");
 
   const id = props.match.params.id;
@@ -51,9 +51,12 @@ const GiraffeShowPage = (props) => {
             (review) => review.id === body.review.id
           );
           let tempReviews = [...giraffe.reviews];
-          tempReviews.splice(reviewIndex, 1, body.review);
+          tempReviews.splice(reviewIndex, 1, body.review); //update review object in place
 
-          setGiraffe({ ...giraffe, reviews: tempReviews });
+          setGiraffe({
+            ...giraffe,
+            reviews: tempReviews,
+          });
         } else if (body.errors) {
           setVoteErrors({
             message: body.errors,
@@ -102,14 +105,14 @@ const GiraffeShowPage = (props) => {
         }
       })
       .then((response) => response.json())
-      .then((body) => {
-        if (body.review) {
+      .then((review) => {
+        if (!review.errors) {
           setGiraffe({
             ...giraffe,
-            reviews: [...giraffe.reviews, body.review],
+            reviews: [...giraffe.reviews, review],
           });
-        } else if (body.errors) {
-          setErrors(body.errors);
+        } else if (review.errors) {
+          setErrors(review.errors);
         }
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));

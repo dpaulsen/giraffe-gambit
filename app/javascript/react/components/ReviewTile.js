@@ -30,7 +30,7 @@ const ReviewTile = (props) => {
     );
   }
 
-  if (props.review.comment !== null) {
+  if (props.review.comment !== "" && props.review.comment !== null) {
     commentDiv = (
       <div className="grid-x grid-margin-x">
         <h5 className="cell small-2">Comment:</h5>
@@ -43,7 +43,7 @@ const ReviewTile = (props) => {
     <div className="grid-container">
       <div className="callout">
         <div className="grid-x grid-margin-x align-middle">
-          <h5 className="cell small-2">Rating:</h5>
+          <h5 className="cell shrink">Rating:</h5>
           <h6 className="cell auto">{props.review.rating} out of 5</h6>
         </div>
 
@@ -52,17 +52,18 @@ const ReviewTile = (props) => {
         <div className="grid-x grid-margin-x align-middle text-center">
           <button
             type="button"
-            className="button cell small-2"
+            className="button cell shrink"
             id="up-vote"
             onClick={onClickHandler}
           >
             Up
           </button>
+
           <div className="cell small-1">{props.review.voteCount}</div>
 
           <button
             type="button"
-            className="button cell small-2"
+            className="button cell shrink"
             id="down-vote"
             onClick={onClickHandler}
           >
@@ -71,6 +72,7 @@ const ReviewTile = (props) => {
         </div>
 
         {voteErrorsDiv}
+
       </div>
     </div>
   );

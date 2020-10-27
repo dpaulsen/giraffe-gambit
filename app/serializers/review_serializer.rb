@@ -10,5 +10,4 @@ class ReviewSerializer < ActiveModel::Serializer
     down_votes = object.votes.where(vote: :down).count
     up_votes - down_votes
   end
-
 end
