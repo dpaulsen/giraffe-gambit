@@ -21,6 +21,6 @@ class Api::V1::GiraffesController < ApiController
   private 
 
   def giraffe_params
-    params.require(:giraffe).permit(:name, :description)
+    params.require(:giraffe).permit(:name, :description, :giraffe_photo)
   end
 end
