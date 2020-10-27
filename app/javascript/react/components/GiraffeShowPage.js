@@ -60,8 +60,6 @@ const GiraffeShowPage = (props) => {
           });
         } else if (body.errors) {
           setErrors(body.errors);
-        } else {
-          console.error("ERROR: Unexpected server response");
         }
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
