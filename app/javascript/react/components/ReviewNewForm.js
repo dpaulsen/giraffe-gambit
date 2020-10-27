@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import RatingRadioGroup from "./RatingRadioGroup";
 
 const ReviewNewForm = (props) => {
   const [formFields, setFormFields] = useState({
-    rating: "",
+    rating: "3",
     comment: "",
   });
 
   let errorsDiv = null;
-  let formPayLoad = { review: formFields };
 
-  const handleChange = (event) => {
+  const handleFieldChange = (event) => {
     setFormFields({
       ...formFields,
       [event.currentTarget.name]: event.currentTarget.value,
@@ -18,17 +18,16 @@ const ReviewNewForm = (props) => {
 
   const clearForm = () => {
     setFormFields({
-      rating: "",
+      rating: "3",
       comment: "",
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    let formPayLoad = { review: formFields };
     props.addNewReview(formPayLoad);
-    if (props.clearForm === true) {
-      clearForm();
-    }
+    clearForm();
   };
 
   if (props.errors !== "") {
@@ -38,43 +37,44 @@ const ReviewNewForm = (props) => {
       </div>
     );
   }
+  
   return (
-    <div className="grid-container callout new-review-container">
-      <h3>Add a Review</h3>
-      <form onSubmit={handleSubmit}>
-        {errorsDiv}
+    <div className="grid-container">
+      <div className="callout">
+        <h5>Add a Review</h5>
+        <form onSubmit={handleSubmit}>
+          {errorsDiv}
 
-        <div className="grid-x grid-margin-x align-middle">
-          <label className="cell small-2 text-right" htmlFor="rating">
-            Rating:
-          </label>
-          <input
-            className="cell small-4 field"
-            type="text"
-            name="rating"
-            id="rating"
-            onChange={handleChange}
-            value={formFields.rating}
-          />
-        </div>
-        <div className="grid-x grid-margin-x align-middle">
-          <label className="cell small-2 text-right" htmlFor="comment">
-            Comment:
-          </label>
-          <input
-            className="cell auto field"
-            type="text"
-            name="comment"
-            id="comment"
-            onChange={handleChange}
-            value={formFields.comment}
-          />
-        </div>
+          <div className="grid-x grid-margin-x">
+            <label className="cell small-2 text-right" htmlFor="rating">
+              Rating:
+            </label>
+            <div id="rating" className="cell small-10 medium-8 large-6 grid-x">
+              <RatingRadioGroup
+                handleFieldChange={handleFieldChange}
+                state={formFields.rating}
+              />
+            </div>
+          </div>
+          <div className="grid-x grid-margin-x align-middle">
+            <label className="cell small-2 text-right" htmlFor="comment">
+              Comment:
+            </label>
+            <input
+              className="cell auto field"
+              type="text"
+              name="comment"
+              id="comment"
+              onChange={handleFieldChange}
+              value={formFields.comment}
+            />
+          </div>
 
-        <div className="grid-x align-center">
-          <input className="cell shrink" type="submit" value="Add Review" />
-        </div>
-      </form>
+          <div className="grid-x align-center">
+            <input className="cell shrink" type="submit" value="Add Review" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const GiraffeIndexTile = (props) => {
   return (
-    <div class="cell">
+    <div className="cell">
       <Link to={`giraffes/${props.data.id}`}>
-        <div class="card">
+        <div className="card">
           <img src="https://via.placeholder.com/200" />
-          <div class="card-section text-center">
+          <div className="card-section text-center">
             <h4>{props.data.name}</h4>
           </div>
         </div>
