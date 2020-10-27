@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :api do 
     namespace :v1 do
       resources :giraffes, only: [:index, :show, :create]
+      resources :votes, only:[:create, :index]
     end
   end
 end
