@@ -36,16 +36,14 @@ const GiraffeNewForm = (props) => {
     body.append("description", formFields.description)
     body.append("image", formFields.image)
 
-    // let formPayLoad = { giraffe: formFields };
-
     fetch("/api/v1/giraffes", {
       method: "POST",
       body: body, 
       credentials: "same-origin",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      // },
+      headers: {
+        "Accept": "application/json",
+        "Accept": "image/jpeg"
+      }
     })
       .then((response) => {
         if (response.ok) {
@@ -58,7 +56,7 @@ const GiraffeNewForm = (props) => {
       })
       .then((response) => response.json())
       .then((body) => {
-        if (body.giraffe) {
+        if (body.id) {
           setShouldRedirect(true);
         } else if (body.errors) {
           setErrors(body.errors);
@@ -68,6 +66,7 @@ const GiraffeNewForm = (props) => {
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   };
+
   if (shouldRedirect) {
     return <Redirect to="/" />;
   }

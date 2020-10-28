@@ -5,7 +5,12 @@ RSpec.describe Api::V1::VotesController, type: :controller do
   let!(:user_writer) { FactoryBot.create(:user) }
   let!(:user_voter) { FactoryBot.create(:user) }
 
-  let!(:first_giraffe) { FactoryBot.create(:giraffe, user: user_owner) }
+  let!(:first_giraffe) { 
+    FactoryBot.create(
+      :giraffe, 
+      user: user_owner, 
+      image: File.open(File.join( Rails.root, 'spec/support/images/testpic.png'))) 
+    }
 
   let!(:first_review) { 
     FactoryBot.create(

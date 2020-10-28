@@ -11,7 +11,7 @@ FactoryBot.define do
   factory :giraffe do
     name { 'name' }
     description { 'description' }
-    image { 'app/assets/images/faviconscutegiraffe/android-chrome-192x192.png'}
+    image { 'image' } #need to use fixture_file upload
   end
 
   factory :review do

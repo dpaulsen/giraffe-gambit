@@ -1,4 +1,5 @@
 class Api::V1::GiraffesController < ApiController
+  skip_before_action :verify_authenticity_token, :only => :create
   def index
     render json: Giraffe.all
   end
@@ -9,7 +10,6 @@ class Api::V1::GiraffesController < ApiController
   end
 
   def create
-    binding.pry
     giraffe = Giraffe.new(giraffe_params)
     giraffe.user = current_user
 
