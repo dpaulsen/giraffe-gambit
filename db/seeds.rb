@@ -10,7 +10,7 @@ u2.save
 u3 = User.new(username: "username3", email: "user3@fake.com")
 u3.password =  "1234567"
 u3.save
-u4 = User.new(username: "HH", email: "hh@fake.com")
+u4 = User.new(username: "jenny", email: "jenny@fake.com")
 u4.password =  "1234567"
 u4.save
 u5 = User.new(username: "George Washington", email: "GW@fake.com")
