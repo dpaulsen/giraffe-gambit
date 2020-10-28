@@ -18,9 +18,14 @@ ActiveRecord::Schema.define(version: 2020_10_27_203340) do
   create_table "giraffes", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.string "image", null: false
+=======
+    t.index ["user_id"], name: "index_giraffes_on_user_id"
+>>>>>>> f807168374f12b21ad9fe70e5741f8b237f1b934
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -29,7 +34,9 @@ ActiveRecord::Schema.define(version: 2020_10_27_203340) do
     t.bigint "giraffe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["giraffe_id"], name: "index_reviews_on_giraffe_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,6 +52,17 @@ ActiveRecord::Schema.define(version: 2020_10_27_203340) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "review_id", null: false
+    t.integer "vote", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_votes_on_review_id"
+    t.index ["user_id", "review_id"], name: "index_votes_on_user_id_and_review_id", unique: true
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
 end

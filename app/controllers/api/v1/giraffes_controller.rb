@@ -11,9 +11,10 @@ class Api::V1::GiraffesController < ApiController
   def create
     # binding.pry
     giraffe = Giraffe.new(giraffe_params)
+    giraffe.user = current_user
 
     if giraffe.save
-      render json: { giraffe: giraffe }
+      render json: giraffe, serializer: GiraffeShowSerializer 
     else
       render json: { errors: giraffe.errors.full_messages.to_sentence }
     end
