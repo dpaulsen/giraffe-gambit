@@ -34,14 +34,14 @@ const GiraffeNewForm = (props) => {
     let body = new FormData()
     body.append("name", formFields.name)
     body.append("description", formFields.description)
-    body.append("giraffe_photo", formFields.image)
+    body.append("image", formFields.image)
 
     // let formPayLoad = { giraffe: formFields };
 
     fetch("/api/v1/giraffes", {
-      credentials: "same-origin",
       method: "POST",
       body: body, 
+      credentials: "same-origin",
       // headers: {
       //   Accept: "application/json",
       //   "Content-Type": "application/json",
@@ -113,7 +113,7 @@ const GiraffeNewForm = (props) => {
         </div>
         <Dropzone onDrop={handleFileUpload}>
           {({getRootProps, getInputProps}) => (
-            <section>
+            <section className="text-center">
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <p>Drag 'n' drop your long necked deer</p>
