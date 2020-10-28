@@ -50,9 +50,10 @@ const GiraffeShowPage = (props) => {
           let reviewIndex = giraffe.reviews.findIndex(
             (review) => review.id === body.review.id
           );
-          let tempReviews = [...giraffe.reviews];
-          tempReviews.splice(reviewIndex, 1, body.review); //update review object in place
 
+          let tempReviews = [...giraffe.reviews];
+          tempReviews.splice(reviewIndex, 1, body.review);
+          
           setGiraffe({
             ...giraffe,
             reviews: tempReviews,
