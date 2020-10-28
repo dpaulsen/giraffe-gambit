@@ -4,9 +4,10 @@ class Api::V1::ReviewsController < ApiController
     review = Review.new(review_params)
     giraffe = Giraffe.find(params[:giraffe_id])
     review.giraffe = giraffe
+    review.owner = current_user
 
     if review.save
-      render json: { review: review }
+      render json: review
     else
       render json: { errors: review.errors.full_messages.to_sentence }
     end

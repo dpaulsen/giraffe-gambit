@@ -12,4 +12,9 @@ FactoryBot.define do
     name { 'name' }
     description { 'description' }
   end
+
+  factory :review do
+    rating { 5 }
+    comment { 'this is a comment' }
+  end
 end

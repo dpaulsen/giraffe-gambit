@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :giraffes, only: [:index, :show, :create] do
         resources :reviews, only: [:create]
       end
+      resources :votes, only:[:create, :index]
     end
   end
 end
