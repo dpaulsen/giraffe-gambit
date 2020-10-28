@@ -21,11 +21,8 @@ ActiveRecord::Schema.define(version: 2020_10_27_203340) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
     t.string "image", null: false
-=======
     t.index ["user_id"], name: "index_giraffes_on_user_id"
->>>>>>> f807168374f12b21ad9fe70e5741f8b237f1b934
   end
 
   create_table "reviews", force: :cascade do |t|

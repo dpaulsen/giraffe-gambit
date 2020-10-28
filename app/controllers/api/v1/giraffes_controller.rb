@@ -9,7 +9,7 @@ class Api::V1::GiraffesController < ApiController
   end
 
   def create
-    # binding.pry
+    binding.pry
     giraffe = Giraffe.new(giraffe_params)
     giraffe.user = current_user
 
