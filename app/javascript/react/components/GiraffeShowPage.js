@@ -120,7 +120,7 @@ const GiraffeShowPage = (props) => {
   };
 
   return (
-    <div>
+    <div className="cell auto page">
       <div>
         <h3>{giraffe.name}</h3>
         <p>{giraffe.description}</p>
@@ -132,7 +132,7 @@ const GiraffeShowPage = (props) => {
       />
       <hr />
       <div>
-        <p> Reviews: </p>
+        <p className="cell"> Reviews: </p>
         <ReviewsList
           reviews={giraffe.reviews}
           handleVoteSubmit={handleVoteSubmit}

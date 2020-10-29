@@ -1,0 +1,14 @@
+@import "./color_variables";
+
+a, a:visited {
+  color: $dark-accent;
+}
+
+a:hover {
+  color: $dark-accent;
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6, a {
+  font-family: 'Oswald', sans-serif;
+}
