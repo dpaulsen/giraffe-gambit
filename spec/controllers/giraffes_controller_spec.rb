@@ -6,7 +6,8 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
   let!(:first_giraffe) { 
     FactoryBot.create(
       :giraffe, 
-      name: "Hugo", user: test_user, 
+      name: "Hugo", 
+      user: test_user, 
       image: File.open(File.join( Rails.root, 'spec/support/images/testpic.png'))
     ) 
   }

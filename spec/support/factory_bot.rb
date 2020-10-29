@@ -11,7 +11,6 @@ FactoryBot.define do
   factory :giraffe do
     name { 'name' }
     description { 'description' }
-    image { 'image' } #need to use fixture_file upload
   end
 
   factory :review do

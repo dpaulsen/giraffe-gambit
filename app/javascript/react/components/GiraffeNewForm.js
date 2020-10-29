@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import Dropzone from 'react-dropzone'
+import Dropzone from "react-dropzone";
 
 const GiraffeNewForm = (props) => {
   const [formFields, setFormFields] = useState({
     name: "",
     description: "",
-    image: ""
+    image: "",
   });
 
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -25,25 +25,25 @@ const GiraffeNewForm = (props) => {
   const handleFileUpload = (acceptedFiles) => {
     setFormFields({
       ...formFields,
-      image: acceptedFiles[0]
-    })
-  }
+      image: acceptedFiles[0],
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let body = new FormData()
-    body.append("name", formFields.name)
-    body.append("description", formFields.description)
-    body.append("image", formFields.image)
+    let body = new FormData();
+    body.append("name", formFields.name);
+    body.append("description", formFields.description);
+    body.append("image", formFields.image);
 
     fetch("/api/v1/giraffes", {
       method: "POST",
-      body: body, 
+      body: body,
       credentials: "same-origin",
       headers: {
-        "Accept": "application/json",
-        "Accept": "image/jpeg"
-      }
+        Accept: "application/json",
+        Accept: "image/jpeg",
+      },
     })
       .then((response) => {
         if (response.ok) {
@@ -111,7 +111,7 @@ const GiraffeNewForm = (props) => {
           />
         </div>
         <Dropzone onDrop={handleFileUpload}>
-          {({getRootProps, getInputProps}) => (
+          {({ getRootProps, getInputProps }) => (
             <section className="text-center">
               <div {...getRootProps()}>
                 <input {...getInputProps()} />

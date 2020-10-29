@@ -29,8 +29,9 @@ const GiraffesContainer = (props) => {
 
   return (
     <div className="grid-container">
-      <Link to="/giraffes/new">Add a Giraffe</Link>
-      <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">{giraffeList}</div>
+      <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+        {giraffeList}
+      </div>
     </div>
   );
 };
