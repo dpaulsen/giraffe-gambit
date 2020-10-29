@@ -1,79 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
+import ReviewShowTile from "./ReviewShowTile";
+import ReviewEditTile from "./ReviewEditTile";
+import ReviewDeleteTile from "./ReviewDeleteTile";
 
 const ReviewTile = (props) => {
-  let voteErrorsDiv = null;
-  let commentDiv = null;
+  const id = props.review.id;
 
-  const onClickHandler = (event) => {
-    let voteChoice = null;
-    if (event.currentTarget.id === "up-vote") {
-      voteChoice = "up";
-    } else if (event.currentTarget.id === "down-vote") {
-      voteChoice = "down";
-    }
+  const [showEditTile, setShowEditTile] = useState(false);
+  const [showDeleteTile, setShowDeleteTile] = useState(false);
 
-    let reviewId = props.review.id;
-
-    props.handleVoteSubmit(reviewId, voteChoice);
+  const onEditClickHandler = (event) => {
+    setShowEditTile(true);
+    setShowDeleteTile(false);
   };
 
-  if (
-    props.voteErrors.message !== "" &&
-    props.voteErrors.reviewId === props.review.id
-  ) {
-    voteErrorsDiv = (
-      <div className="grid-x align-center">
-        <div className="callout alert cell shrink">
-          {props.voteErrors.message}
-        </div>
-      </div>
-    );
-  }
+  const onDeleteClickHandler = (event) => {
+    setShowDeleteTile(true);
+    setShowEditTile(false);
+  };
 
-  if (props.review.comment !== "" && props.review.comment !== null) {
-    commentDiv = (
-      <div className="grid-x grid-margin-x">
-        <h5 className="cell small-2">Comment:</h5>
-        <div className="callout cell small-12">{props.review.comment}</div>
-      </div>
+  const onDiscardClickHandler = (event) => {
+    setShowEditTile(false);
+  };
+
+  const onCancelDeleteClickHandler = (event) => {
+    setShowDeleteTile(false);
+  };
+
+  const onSaveClickHandler = (formPayLoad) => {
+    setShowEditTile(false);
+    props.editReview(formPayLoad);
+  };
+
+  const onConfirmDeleteClickHandler = (event) => {
+    props.deleteReview(event);
+  };
+
+  let displayTile = null;
+
+  if (showEditTile && !showDeleteTile) {
+    displayTile = (
+      <ReviewEditTile
+        review={props.review}
+        editReview={onSaveClickHandler}
+        onDiscardClickHandler={onDiscardClickHandler}
+      />
+    );
+  } else if (showDeleteTile && !showEditTile) {
+    displayTile = (
+      <ReviewDeleteTile
+        review={props.review}
+        deleteReview={onConfirmDeleteClickHandler}
+        onCancelDeleteClickHandler={onCancelDeleteClickHandler}
+      />
+    );
+  } else {
+    displayTile = (
+      <ReviewShowTile
+        review={props.review}
+        handleVoteSubmit={props.handleVoteSubmit}
+        voteErrors={props.voteErrors}
+        onEditClickHandler={onEditClickHandler}
+        onDeleteClickHandler={onDeleteClickHandler}
+      />
     );
   }
 
   return (
-    <div className="grid-container">
-      <div className="callout">
-        <div className="grid-x grid-margin-x align-middle">
-          <h5 className="cell shrink">Rating:</h5>
-          <h6 className="cell auto">{props.review.rating} out of 5</h6>
-        </div>
-
-        {commentDiv}
-
-        <div className="grid-x grid-margin-x align-middle text-center">
-          <button
-            type="button"
-            className="button cell shrink"
-            id="up-vote"
-            onClick={onClickHandler}
-          >
-            Up
-          </button>
-
-          <div className="cell small-1">{props.review.voteCount}</div>
-
-          <button
-            type="button"
-            className="button cell shrink"
-            id="down-vote"
-            onClick={onClickHandler}
-          >
-            Down
-          </button>
-        </div>
-
-        {voteErrorsDiv}
-
-      </div>
+    <div>
+      <div></div>
+      <div>{displayTile}</div>
     </div>
   );
 };

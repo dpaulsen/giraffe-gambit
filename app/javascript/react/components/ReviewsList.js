@@ -9,6 +9,8 @@ const ReviewsList = (props) => {
         review={reviewObject}
         handleVoteSubmit={props.handleVoteSubmit}
         voteErrors={props.voteErrors}
+        editReview={props.editReview}
+        deleteReview={props.deleteReview}
       />
     );
   });

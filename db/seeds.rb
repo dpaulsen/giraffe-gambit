@@ -17,10 +17,14 @@ u5 = User.new(username: "George Washington", email: "GW@fake.com")
 u5.password =  "1234567"
 u5.save
 
-g1 = Giraffe.find_or_create_by!(user: u1, name: "steven", description: "he's a cool giraffe, but he thinks people are leaves, so he wont stop biting them, which is proving to be problematic in a myriad of ways")
-g2 = Giraffe.find_or_create_by!(user: u1, name: "giraffey", description: "Just like the default giraffe")
-g3 = Giraffe.find_or_create_by!(user: u4, name: "bobby", description: "A very odd giraffe, deer shaped and also brown. not sure if he's actually a giraffe")
-g4 = Giraffe.find_or_create_by!(user: u4, name: "sarah", description: "she's a kind giraffe, who loves running around the Savanna")
+Giraffe.destroy_all
+open_generic_pic = File.open(File.join( Rails.root, 'spec/support/images/testpic.png'))
+g1 = Giraffe.create!(user: u1, name: "steven", description: "he's a cool giraffe, but he thinks people are leaves, so he wont stop biting them, which is proving to be problematic in a myriad of ways", image:  open_generic_pic)
+g2 = Giraffe.create!(user: u1, name: "giraffey", description: "Just like the default giraffe", image:  open_generic_pic)
+g3 = Giraffe.create!(user: u4, name: "bobby", description: "A very odd giraffe, deer shaped and also brown. not sure if he's actually a giraffe", image:  open_generic_pic)
+g4 = Giraffe.create!(user: u4, name: "sarah", description: "she's a kind giraffe, who loves running around the Savanna", image:  open_generic_pic)
+
+
 
 r1 = Review.find_or_create_by!(owner: u2, giraffe: g1, rating: 5)
 r2 = Review.find_or_create_by!(owner: u2, giraffe: g2, rating: 3)
