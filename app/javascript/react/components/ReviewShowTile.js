@@ -17,8 +17,6 @@ const ReviewShowTile = (props) => {
     props.handleVoteSubmit(reviewId, voteChoice);
   };
 
-
-
   if (
     props.voteErrors.message !== "" &&
     props.voteErrors.reviewId === props.review.id
@@ -47,7 +45,6 @@ const ReviewShowTile = (props) => {
         <div className="grid-x grid-margin-x align-middle">
           <h5 className="cell shrink">Rating:</h5>
           <h6 className="cell auto">{props.review.rating} out of 5</h6>
-
           <button
             type="button"
             className="button cell shrink"
@@ -56,7 +53,6 @@ const ReviewShowTile = (props) => {
           >
             Edit
           </button>
-
           <button
             type="button"
             className="button cell shrink"
@@ -65,11 +61,8 @@ const ReviewShowTile = (props) => {
           >
             Delete
           </button>
-
         </div>
-
         {commentDiv}
-
         <div className="grid-x grid-margin-x align-middle text-center">
           <button
             type="button"
@@ -79,9 +72,7 @@ const ReviewShowTile = (props) => {
           >
             Up
           </button>
-
           <div className="cell small-1">{props.review.voteCount}</div>
-
           <button
             type="button"
             className="button cell shrink"
@@ -91,9 +82,7 @@ const ReviewShowTile = (props) => {
             Down
           </button>
         </div>
-
         {voteErrorsDiv}
-
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import RatingRadioGroup from "./RatingRadioGroup";
 const ReviewEditForm = (props) => {
   const [formFields, setFormFields] = useState({
     rating: props.review.rating.toString(),
-    comment: props.review.comment !== null ? props.review.comment : "" ,
+    comment: props.review.comment !== null ? props.review.comment : "",
   });
 
   let errorsDiv = null;
@@ -16,13 +16,10 @@ const ReviewEditForm = (props) => {
     });
   };
 
-
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    let formPayLoad = { review: formFields };
-    props.editReview(formPayLoad);
-
+    let messageUp = { id: props.review.id, review: formFields };
+    props.editReview(messageUp);
   };
 
   if (props.errors !== "") {
@@ -32,7 +29,7 @@ const ReviewEditForm = (props) => {
       </div>
     );
   }
-  
+
   return (
     <div className="grid-container">
       <div className="callout">
@@ -66,10 +63,18 @@ const ReviewEditForm = (props) => {
           </div>
 
           <div className="grid-x align-center">
-            <input className="button cell shrink" type="submit" value="Save Review" />
-            <button className="button cell shrink" type="button" onClick={props.onDiscardClickHandler}>  
-               Discard Changes
-            </button> 
+            <input
+              className="button cell shrink"
+              type="submit"
+              value="Save Review"
+            />
+            <button
+              className="button cell shrink"
+              type="button"
+              onClick={props.onDiscardClickHandler}
+            >
+              Discard Changes
+            </button>
           </div>
         </form>
       </div>

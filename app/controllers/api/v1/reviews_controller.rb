@@ -13,6 +13,30 @@ class Api::V1::ReviewsController < ApiController
     end
   end
 
+  def update  
+
+    review = Review.find(params[:id])
+    review_attributes = { rating: params[:review][:rating], comment: params[:review][:comment]}
+
+    
+    review.update_attributes(review_attributes)
+    render json: review
+
+    # authorization error...
+
+  end
+
+  def destroy
+
+    review = Review.find(params[:id])
+    review.destroy
+    
+    render json: review
+
+    #authorization errors...
+
+  end
+
   private 
 
   def review_params
