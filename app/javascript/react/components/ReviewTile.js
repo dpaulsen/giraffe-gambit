@@ -1,130 +1,70 @@
-import React from "react";
-import upVoteImage from "../../../assets/images/votes/black_upvote";
-import downVoteImage from "../../../assets/images/votes/black_downvote";
-import upVoteImageClicked from "../../../assets/images/votes/green_upvote";
-import downVoteImageClicked from "../../../assets/images/votes/red_downvote";
+import React, { useState } from "react";
+import ReviewShowTile from "./ReviewShowTile";
+import ReviewEditTile from "./ReviewEditTile";
+import ReviewDeleteTile from "./ReviewDeleteTile";
 
 const ReviewTile = (props) => {
-  let voteErrorsDiv = null;
-  let commentDiv = null;
-  let upDisplayImage = "";
-  let downDisplayImage = "";
-  
-  const onClickHandler = (event) => {
-    let voteChoice = null;
-    if (event.currentTarget.id === "up-vote") {
-      voteChoice = "up";
-    } else if (event.currentTarget.id === "down-vote") {
-      voteChoice = "down";
-    }
+  const [showEditTile, setShowEditTile] = useState(false);
+  const [showDeleteTile, setShowDeleteTile] = useState(false);
 
-    let reviewId = props.review.id;
-
-    props.handleVoteSubmit(reviewId, voteChoice);
+  const onEditClickHandler = (event) => {
+    setShowEditTile(true);
+    setShowDeleteTile(false);
   };
 
-  if (
-    props.voteErrors.message !== "" &&
-    props.voteErrors.reviewId === props.review.id
-  ) {
-    voteErrorsDiv = (
-      <div className="grid-x align-center">
-        <div className="callout alert cell shrink">
-          {props.voteErrors.message}
-        </div>
-      </div>
-    );
-  }
+  const onDeleteClickHandler = (event) => {
+    setShowDeleteTile(true);
+    setShowEditTile(false);
+  };
 
-  if (props.review.comment !== "" && props.review.comment !== null) {
-    commentDiv = (
-      <div className="grid-x grid-margin-x">
-        <h5 className="cell small-2">Comment:</h5>
-        <div className="callout cell small-12">{props.review.comment}</div>
-      </div>
-    );
-  }
+  const onDiscardClickHandler = (event) => {
+    setShowEditTile(false);
+  };
 
-  if (props.review?.myVote?.vote === "up") {
-    //user voted up
-    upDisplayImage = upVoteImageClicked;
-    downDisplayImage = downVoteImage;
-  } else if (props.review?.myVote?.vote === "down") {
-    // user voted down
-    upDisplayImage = upVoteImage;
-    downDisplayImage = downVoteImageClicked;
+  const onCancelDeleteClickHandler = (event) => {
+    setShowDeleteTile(false);
+  };
+
+  const onSaveClickHandler = (formPayLoad) => {
+    setShowEditTile(false);
+    props.editReview(formPayLoad);
+  };
+
+  const onConfirmDeleteClickHandler = (event) => {
+    props.deleteReview(event);
+  };
+
+  let displayTile = null;
+
+  if (showEditTile && !showDeleteTile) {
+    displayTile = (
+      <ReviewEditTile
+        review={props.review}
+        editReview={onSaveClickHandler}
+        onDiscardClickHandler={onDiscardClickHandler}
+      />
+    );
+  } else if (showDeleteTile && !showEditTile) {
+    displayTile = (
+      <ReviewDeleteTile
+        review={props.review}
+        deleteReview={onConfirmDeleteClickHandler}
+        onCancelDeleteClickHandler={onCancelDeleteClickHandler}
+      />
+    );
   } else {
-    // user hasnt voted / taken back vote
-    upDisplayImage = upVoteImage;
-    downDisplayImage = downVoteImage;
+    displayTile = (
+      <ReviewShowTile
+        review={props.review}
+        handleVoteSubmit={props.handleVoteSubmit}
+        voteErrors={props.voteErrors}
+        onEditClickHandler={onEditClickHandler}
+        onDeleteClickHandler={onDeleteClickHandler}
+      />
+    );
   }
 
-  const onUpEnter = (event) => {
-    event.currentTarget.src = upVoteImageClicked;
-  };
-
-  const onDownEnter = (event) => {
-    event.currentTarget.src = downVoteImageClicked;
-  };
-
-  const onUpLeave = (event) => {
-    if (props.review?.myVote?.vote !== "up") {
-      event.currentTarget.src = upVoteImage;
-    }
-  };
-
-  const onDownLeave = (event) => {
-    if (props.review?.myVote?.vote !== "down") {
-      event.currentTarget.src = downVoteImage;
-    }
-  };
-
-  return (
-    <div className="grid-container">
-      <div className="callout">
-        <div className="grid-x grid-margin-x align-middle">
-          <h5 className="cell shrink">Rating:</h5>
-          <h6 className="cell auto">{props.review.rating} out of 5</h6>
-        </div>
-
-        {commentDiv}
-
-        <div className="grid-x grid-margin-x align-middle text-center">
-          <div
-            id="vote-container"
-            className="grid-x cell shrink align-middle-center"
-          >
-            <img
-              src={upDisplayImage}
-              id="up-vote"
-              className="cell"
-              onClick={onClickHandler}
-              onMouseEnter={onUpEnter}
-              onMouseLeave={onUpLeave}
-            />
-          </div>
-
-          <div className="cell small-1">{props.review.voteCount}</div>
-
-          <div
-            id="vote-container"
-            className="grid-x cell shrink align-middle-center"
-          >
-            <img
-              src={downDisplayImage}
-              id="down-vote"
-              className="cell"
-              onClick={onClickHandler}
-              onMouseEnter={onDownEnter}
-              onMouseLeave={onDownLeave}
-            />
-          </div>
-        </div>
-
-        {voteErrorsDiv}
-      </div>
-    </div>
-  );
+  return <div>{displayTile}</div>;
 };
 
 export default ReviewTile;

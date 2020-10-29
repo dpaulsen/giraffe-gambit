@@ -120,6 +120,89 @@ const GiraffeShowPage = (props) => {
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   };
 
+  const editReview = (message) => {
+    let reviewId = message.id;
+    let payload = message.review;
+    fetch(`/api/v1/giraffes/${id}/reviews/${reviewId}`, {
+      credentials: "same-origin",
+      method: "PATCH",
+      body: JSON.stringify(payload),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw error;
+        }
+      })
+      .then((response) => response.json())
+      .then((updatedReview) => {
+        if (!updatedReview.errors) {
+          let reviewIndex = giraffe.reviews.findIndex(
+            (review) => review.id === updatedReview.id
+          );
+
+          let tempReviews = [...giraffe.reviews];
+          tempReviews.splice(reviewIndex, 1, updatedReview);
+
+          setGiraffe({
+            ...giraffe,
+            reviews: tempReviews,
+          });
+        } else if (review.errors) {
+          setErrors(review.errors);
+        }
+      })
+      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  };
+
+  const deleteReview = (message) => {
+    let reviewId = message.id;
+
+    fetch(`/api/v1/giraffes/${id}/reviews/${reviewId}`, {
+      credentials: "same-origin",
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw error;
+        }
+      })
+      .then((response) => response.json())
+      .then((removeReview) => {
+        if (!removeReview.errors) {
+          let reviewIndex = giraffe.reviews.findIndex(
+            (review) => review.id === removeReview.id
+          );
+
+          let tempReviews = [...giraffe.reviews];
+          tempReviews.splice(reviewIndex, 1);
+
+          setGiraffe({
+            ...giraffe,
+            reviews: tempReviews,
+          });
+        } else if (review.errors) {
+          setErrors(review.errors);
+        }
+      })
+      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  };
+
   return (
     <div className="cell auto page">
       <div className="grid-x grid-margin-x grid-padding-y">
@@ -147,6 +230,8 @@ const GiraffeShowPage = (props) => {
           reviews={giraffe.reviews}
           handleVoteSubmit={handleVoteSubmit}
           voteErrors={voteErrors}
+          editReview={editReview}
+          deleteReview={deleteReview}
         />
       </div>
       <Link to="/giraffes">Back to Herd</Link>
