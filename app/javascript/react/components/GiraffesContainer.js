@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import GiraffeIndexTile from "./GiraffeIndexTile";
 
 const GiraffesContainer = (props) => {
@@ -28,8 +27,8 @@ const GiraffesContainer = (props) => {
   });
 
   return (
-    <div className="grid-container">
-      <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+    <div className="cell auto grid-container page">
+      <div className="grid-x grid-margin-x grid-padding-x grid-padding-y small-up-2 medium-up-3 large-up-4">
         {giraffeList}
       </div>
     </div>

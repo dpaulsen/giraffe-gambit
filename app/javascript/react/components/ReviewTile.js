@@ -4,8 +4,6 @@ import ReviewEditTile from "./ReviewEditTile";
 import ReviewDeleteTile from "./ReviewDeleteTile";
 
 const ReviewTile = (props) => {
-  const id = props.review.id;
-
   const [showEditTile, setShowEditTile] = useState(false);
   const [showDeleteTile, setShowDeleteTile] = useState(false);
 
@@ -66,12 +64,7 @@ const ReviewTile = (props) => {
     );
   }
 
-  return (
-    <div>
-      <div></div>
-      <div>{displayTile}</div>
-    </div>
-  );
+  return <div>{displayTile}</div>;
 };
 
 export default ReviewTile;

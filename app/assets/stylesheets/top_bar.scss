@@ -1,0 +1,23 @@
+@import "./color_variables";
+
+.topbar-color {
+  background-color: $dark-accent;
+}
+
+#title {
+  font-family: 'Gochi Hand', sans-serif;
+  font-size: 130%;
+}
+
+#title:hover {
+  text-decoration: none;
+}
+
+.sign {
+  font-size: 150%;
+  margin-right: 1em;
+}
+
+a.light-text-color {
+  color: $red-accent;
+}

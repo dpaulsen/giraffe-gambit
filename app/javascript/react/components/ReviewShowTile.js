@@ -1,8 +1,14 @@
 import React from "react";
+import upVoteImage from "../../../assets/images/votes/black_upvote";
+import downVoteImage from "../../../assets/images/votes/black_downvote";
+import upVoteImageClicked from "../../../assets/images/votes/green_upvote";
+import downVoteImageClicked from "../../../assets/images/votes/red_downvote";
 
 const ReviewShowTile = (props) => {
   let voteErrorsDiv = null;
   let commentDiv = null;
+  let upDisplayImage = "";
+  let downDisplayImage = "";
 
   const onVoteClickHandler = (event) => {
     let voteChoice = null;
@@ -39,6 +45,40 @@ const ReviewShowTile = (props) => {
     );
   }
 
+  if (props.review?.myVote?.vote === "up") {
+    //user voted up
+    upDisplayImage = upVoteImageClicked;
+    downDisplayImage = downVoteImage;
+  } else if (props.review?.myVote?.vote === "down") {
+    // user voted down
+    upDisplayImage = upVoteImage;
+    downDisplayImage = downVoteImageClicked;
+  } else {
+    // user hasnt voted / taken back vote
+    upDisplayImage = upVoteImage;
+    downDisplayImage = downVoteImage;
+  }
+
+  const onUpEnter = (event) => {
+    event.currentTarget.src = upVoteImageClicked;
+  };
+
+  const onDownEnter = (event) => {
+    event.currentTarget.src = downVoteImageClicked;
+  };
+
+  const onUpLeave = (event) => {
+    if (props.review?.myVote?.vote !== "up") {
+      event.currentTarget.src = upVoteImage;
+    }
+  };
+
+  const onDownLeave = (event) => {
+    if (props.review?.myVote?.vote !== "down") {
+      event.currentTarget.src = downVoteImage;
+    }
+  };
+
   return (
     <div className="grid-container">
       <div className="callout">
@@ -64,23 +104,35 @@ const ReviewShowTile = (props) => {
         </div>
         {commentDiv}
         <div className="grid-x grid-margin-x align-middle text-center">
-          <button
-            type="button"
-            className="button cell shrink"
-            id="up-vote"
-            onClick={onVoteClickHandler}
+          <div
+            id="up-vote-container"
+            className="grid-x cell shrink align-middle-center"
           >
-            Up
-          </button>
+            <img
+              src={upDisplayImage}
+              id="up-vote"
+              className="cell"
+              onClick={onVoteClickHandler}
+              onMouseEnter={onUpEnter}
+              onMouseLeave={onUpLeave}
+            />
+          </div>
+
           <div className="cell small-1">{props.review.voteCount}</div>
-          <button
-            type="button"
-            className="button cell shrink"
-            id="down-vote"
-            onClick={onVoteClickHandler}
+
+          <div
+            id="down-vote-container"
+            className="grid-x cell shrink align-middle-center"
           >
-            Down
-          </button>
+            <img
+              src={downDisplayImage}
+              id="down-vote"
+              className="cell"
+              onClick={onVoteClickHandler}
+              onMouseEnter={onDownEnter}
+              onMouseLeave={onDownLeave}
+            />
+          </div>
         </div>
         {voteErrorsDiv}
       </div>

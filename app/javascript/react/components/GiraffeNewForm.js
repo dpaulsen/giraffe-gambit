@@ -10,8 +10,8 @@ const GiraffeNewForm = (props) => {
   });
 
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [giraffeId, setGiraffeId] = useState(-1); 
-  
+  const [giraffeId, setGiraffeId] = useState(-1);
+
   const [errors, setErrors] = useState("");
 
   let errorsDiv = null;

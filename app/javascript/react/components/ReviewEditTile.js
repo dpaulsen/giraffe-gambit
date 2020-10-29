@@ -7,8 +7,6 @@ const ReviewEditForm = (props) => {
     comment: props.review.comment !== null ? props.review.comment : "",
   });
 
-  let errorsDiv = null;
-
   const handleFieldChange = (event) => {
     setFormFields({
       ...formFields,
@@ -27,7 +25,6 @@ const ReviewEditForm = (props) => {
       <div className="callout">
         <h5>Edit Review</h5>
         <form onSubmit={handleSubmit}>
-
           <div className="grid-x grid-margin-x">
             <label className="cell small-2 text-right" htmlFor="rating">
               Rating:

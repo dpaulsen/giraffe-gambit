@@ -1,0 +1,9 @@
+@import "./color_variables";
+
+.navbar {
+  background-color: $secondary;
+
+  a {
+    font-family: 'Oswald', sans-serif;
+  }
+}

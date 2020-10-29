@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GiraffeGambit</title>
+  <title>Giraffe Spot</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag asset_path('faviconscutegiraffe/favicon-32x32.png') %>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 </head>
 <body>
-  
-  <nav class="top-bar">
-    <h1><a href="/">GiraffeGambit</a></h1>
-
+  <nav class="grid-x top-bar topbar-color text-center">
+      <h1 class="cell small-6 small-offset-3 light-text-color"><a id="title" class="light-text-color" href="/">Giraffe Spot</a></h1>
     <section class="top-bar-section">
-      <ul class="right">
+      <ul class="right no-bullet">
         <%- if current_user -%>
           <%- if current_user.profile_photo.url -%>
             <%= image_tag current_user.profile_photo.url, class: "profile-photo" %>
           <%- end -%>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+          <li class="topbar-color"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "light-text-color sign" %></li>
         <%- else -%>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Sign In', new_user_session_path %></li>
+          <li class="topbar-color"><%= link_to 'Sign Up', new_user_registration_path, class: "light-text-color sign" %></li>
+          <li class="topbar-color"><%= link_to 'Sign In', new_user_session_path, class: "light-text-color sign" %></li>
         <%- end -%>
       </ul>
     </section>
   </nav>
-
   <%- flash.each do |key, value| -%>
-    <div class="flash flash-<%= key %>">
-      <%= value %>
+    <div class="grid-x text-center">
+      <div class="cell topbar-color light-text-color flash flash-<%= key %>">
+        <%= value %>
+      </div>
     </div>
   <%- end -%>
 

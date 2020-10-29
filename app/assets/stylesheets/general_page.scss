@@ -1,0 +1,10 @@
+@import "./color_variables";
+
+.page {
+  background-color: $off-white;
+  padding: 2rem 2rem 2rem 2rem;
+}
+
+.giraffe-neck {
+  background-image: url(./neck-tile/tile.png);
+}

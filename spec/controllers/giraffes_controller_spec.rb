@@ -63,7 +63,7 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(returned_json.length).to eq 4
+      expect(returned_json.length).to eq 5
       expect(returned_json["name"]).to eq first_giraffe.name
       expect(returned_json["id"]).to eq first_giraffe.id
       expect(returned_json["description"]).to eq first_giraffe.description
