@@ -10,7 +10,8 @@ const GiraffeNewForm = (props) => {
   });
 
   const [shouldRedirect, setShouldRedirect] = useState(false);
-
+  const [giraffeId, setGiraffeId] = useState(-1); 
+  
   const [errors, setErrors] = useState("");
 
   let errorsDiv = null;
@@ -57,6 +58,7 @@ const GiraffeNewForm = (props) => {
       .then((response) => response.json())
       .then((body) => {
         if (body.id) {
+          setGiraffeId(body.id);
           setShouldRedirect(true);
         } else if (body.errors) {
           setErrors(body.errors);
@@ -68,7 +70,7 @@ const GiraffeNewForm = (props) => {
   };
 
   if (shouldRedirect) {
-    return <Redirect to="/" />;
+    return <Redirect to={`/giraffes/${giraffeId}`} />;
   }
 
   if (errors !== "") {
