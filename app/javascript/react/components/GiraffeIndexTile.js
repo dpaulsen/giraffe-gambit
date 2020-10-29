@@ -6,7 +6,7 @@ const GiraffeIndexTile = (props) => {
     <div className="cell">
       <Link to={`giraffes/${props.data.id}`}>
         <div className="card">
-          <img src="https://via.placeholder.com/200" />
+          <img src={props.data.image.url} />
           <div className="card-section text-center">
             <h4>{props.data.name}</h4>
           </div>
