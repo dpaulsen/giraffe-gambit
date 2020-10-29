@@ -1,5 +1,5 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :rating, :comment, :userIsOwner, :voteCount
+  attributes :id, :rating, :comment, :userIsOwner, :voteCount, :myVote
 
   def userIsOwner
     current_user == object.owner
@@ -9,5 +9,9 @@ class ReviewSerializer < ActiveModel::Serializer
     up_votes = object.votes.where(vote: :up).count
     down_votes = object.votes.where(vote: :down).count
     up_votes - down_votes
+  end
+
+  def myVote
+    object.votes.where(user: current_user).first
   end
 end

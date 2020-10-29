@@ -8,6 +8,7 @@ const GiraffeShowPage = (props) => {
     id: null,
     name: "",
     description: "",
+    image: null,
     reviews: [],
   });
 
@@ -53,7 +54,7 @@ const GiraffeShowPage = (props) => {
 
           let tempReviews = [...giraffe.reviews];
           tempReviews.splice(reviewIndex, 1, body.review);
-          
+
           setGiraffe({
             ...giraffe,
             reviews: tempReviews,
@@ -121,10 +122,19 @@ const GiraffeShowPage = (props) => {
 
   return (
     <div className="cell auto page">
-      <div>
-        <h3>{giraffe.name}</h3>
-        <p>{giraffe.description}</p>
+      <div className="grid-x grid-margin-x grid-padding-y">
+        <div className="grid-x align-center cell small-6">
+          <img className="cell shrink giraffe-image" src={giraffe.image?.url} />
+        </div>
+
+        <div className="cell small-6">
+          <div className="grid-y grid-padding-y" style={{ height: "100%" }}>
+            <h1 className="cell shrink">{giraffe.name}</h1>
+            <h4 className="cell auto">{giraffe.description}</h4>
+          </div>
+        </div>
       </div>
+
       <ReviewNewForm
         giraffeId={id}
         errors={errors}
