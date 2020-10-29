@@ -215,7 +215,6 @@ const GiraffeShowPage = (props) => {
       <div>
         <p> Reviews: </p>
         <ReviewsList
-          giraffeId={id}
           reviews={giraffe.reviews}
           handleVoteSubmit={handleVoteSubmit}
           voteErrors={voteErrors}

@@ -9,20 +9,11 @@ const ReviewEditForm = (props) => {
     props.deleteReview(formPayLoad);
   };
 
-  if (props.errors !== "") {
-    errorsDiv = (
-      <div className="grid-x align-center">
-        <div className="callout alert cell shrink">{props.errors}</div>
-      </div>
-    );
-  }
-
   return (
     <div className="grid-container">
       <div className="callout">
         <h5>Delete Review</h5>
         <form onSubmit={handleSubmit}>
-          {errorsDiv}
           <div className="grid-x grid-margin-x">
             <h6 className="cell auto">
               Rating: {props.review.rating} out of 5

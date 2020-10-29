@@ -22,20 +22,11 @@ const ReviewEditForm = (props) => {
     props.editReview(messageUp);
   };
 
-  if (props.errors !== "") {
-    errorsDiv = (
-      <div className="grid-x align-center">
-        <div className="callout alert cell shrink">{props.errors}</div>
-      </div>
-    );
-  }
-
   return (
     <div className="grid-container">
       <div className="callout">
         <h5>Edit Review</h5>
         <form onSubmit={handleSubmit}>
-          {errorsDiv}
 
           <div className="grid-x grid-margin-x">
             <label className="cell small-2 text-right" htmlFor="rating">
