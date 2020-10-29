@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import Dropzone from "react-dropzone";
 
 const GiraffeNewForm = (props) => {
   const [formFields, setFormFields] = useState({
     name: "",
     description: "",
+    image: "",
   });
 
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -20,18 +22,27 @@ const GiraffeNewForm = (props) => {
     });
   };
 
+  const handleFileUpload = (acceptedFiles) => {
+    setFormFields({
+      ...formFields,
+      image: acceptedFiles[0],
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    let formPayLoad = { giraffe: formFields };
+    let body = new FormData();
+    body.append("name", formFields.name);
+    body.append("description", formFields.description);
+    body.append("image", formFields.image);
 
     fetch("/api/v1/giraffes", {
-      credentials: "same-origin",
       method: "POST",
-      body: JSON.stringify(formPayLoad),
+      body: body,
+      credentials: "same-origin",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: "image/jpeg",
       },
     })
       .then((response) => {
@@ -45,7 +56,7 @@ const GiraffeNewForm = (props) => {
       })
       .then((response) => response.json())
       .then((body) => {
-        if (body.giraffe) {
+        if (body.id) {
           setShouldRedirect(true);
         } else if (body.errors) {
           setErrors(body.errors);
@@ -55,6 +66,7 @@ const GiraffeNewForm = (props) => {
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   };
+
   if (shouldRedirect) {
     return <Redirect to="/" />;
   }
@@ -98,6 +110,16 @@ const GiraffeNewForm = (props) => {
             value={formFields.description}
           />
         </div>
+        <Dropzone onDrop={handleFileUpload}>
+          {({ getRootProps, getInputProps }) => (
+            <section className="text-center">
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop your long necked deer</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
 
         <div className="grid-x align-center">
           <input
