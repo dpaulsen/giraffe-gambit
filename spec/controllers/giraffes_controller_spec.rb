@@ -3,8 +3,22 @@ require "rails_helper"
 RSpec.describe Api::V1::GiraffesController, type: :controller do
   let!(:test_user) { FactoryBot.create(:user) }
 
-  let!(:first_giraffe) { FactoryBot.create(:giraffe, name: "Hugo", user: test_user) }
-  let!(:second_giraffe) { FactoryBot.create(:giraffe, name: "Penelope", user: test_user) }
+  let!(:first_giraffe) { 
+    FactoryBot.create(
+      :giraffe, 
+      name: "Hugo", 
+      user: test_user, 
+      image: File.open(File.join( Rails.root, 'spec/support/images/testpic.png'))
+    ) 
+  }
+
+  let!(:second_giraffe) { 
+    FactoryBot.create(:giraffe,
+      name: "Penelope", 
+      user: test_user,
+      image: File.open(File.join( Rails.root, 'spec/support/images/testpic.png'))
+    )
+  }
 
   let!(:first_review) { 
     FactoryBot.create(
@@ -64,15 +78,15 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
   describe "POST#create" do
     it "creates a new giraffe" do
+
       post_json = {
-        giraffe: {
           name: "Shelly",
-          description: "gnarly giraffe"
-        }
+          description: "gnarly giraffe",
+          image: Rack::Test::UploadedFile.new(
+            File.join( Rails.root, 'spec/support/images/testpic.png'), 'image/png')
       }
 
       sign_in test_user
-
       prev_count = Giraffe.count
       post(:create, params: post_json, format: :json)
       expect(Giraffe.count).to eq(prev_count + 1)
@@ -80,10 +94,10 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
     it "returns the json of the newly posted giraffe" do
       post_json = {
-        giraffe: {
           name: "Shelly",
-          description: "gnarly giraffe"
-        }
+          description: "gnarly giraffe",
+          image: Rack::Test::UploadedFile.new(
+            File.join( Rails.root, 'spec/support/images/testpic.png'), 'image/png')
       }
 
       sign_in test_user
@@ -101,10 +115,8 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
 
     it "returns errors if the input is not valid" do
       post_json = {
-        giraffe: {
           name: "",
           description: ""
-        }
       }
 
       sign_in test_user
@@ -116,7 +128,7 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      expect(returned_json["errors"]).to eq "Name can't be blank and Description can't be blank"
+      expect(returned_json["errors"]).to eq "Name can't be blank, Description can't be blank, and Image can't be blank"
     end
   end
 end

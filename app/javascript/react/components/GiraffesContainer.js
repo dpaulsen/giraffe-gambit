@@ -28,7 +28,9 @@ const GiraffesContainer = (props) => {
 
   return (
     <div className="cell auto grid-container page">
-      <div className="grid-x grid-margin-x grid-padding-x small-up-2 medium-up-3 large-up-4">{giraffeList}</div>
+      <div className="grid-x grid-margin-x grid-padding-x small-up-2 medium-up-3 large-up-4">
+        {giraffeList}
+      </div>
     </div>
   );
 };

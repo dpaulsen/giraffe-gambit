@@ -3,7 +3,12 @@ require "rails_helper"
 RSpec.describe Api::V1::ReviewsController, type: :controller do
   let!(:test_user) { FactoryBot.create(:user) }
 
-  let!(:first_giraffe) { FactoryBot.create(:giraffe, user: test_user) }
+  let!(:first_giraffe) { 
+    FactoryBot.create(
+      :giraffe, 
+      user: test_user, 
+      image: File.open(File.join( Rails.root, 'spec/support/images/testpic.png'))) 
+  }
 
   describe "POST#create" do
     it "creates a new review" do
