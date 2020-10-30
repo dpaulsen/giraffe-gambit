@@ -11,7 +11,7 @@ const Navbar = (props) => {
         if (response.ok) {
           return response;
         } else {
-          debugger
+          //debugger
           let errorMessage = `${response.status} (${response.statusText})`,
           error = new Error(errorMessage);
           throw error;
@@ -19,7 +19,7 @@ const Navbar = (props) => {
       })
       .then((response) => response.json())
       .then((body) => {
-        debugger
+        //debugger
         setGiraffes(body);
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));

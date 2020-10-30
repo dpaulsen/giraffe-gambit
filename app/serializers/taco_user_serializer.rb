@@ -1,3 +1,3 @@
-class UserSerializer < ActiveModel::Serializer
-  attributes :username, :roll
+class TacoUserSerializer < ActiveModel::Serializer
+  attributes :username, :role
 end
