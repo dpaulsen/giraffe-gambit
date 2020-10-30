@@ -1,5 +1,6 @@
 class Api::V1::GiraffesController < ApiController
   skip_before_action :verify_authenticity_token, :only => :create
+
   def index
     render json: Giraffe.all
   end
@@ -18,6 +19,13 @@ class Api::V1::GiraffesController < ApiController
     else
       render json: { errors: giraffe.errors.full_messages.to_sentence }
     end
+  end
+
+  def destroy
+    giraffe = Giraffe.find(params[:id])
+    giraffe.destroy
+    
+    render json: giraffe 
   end
 
   private 

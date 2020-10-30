@@ -4,6 +4,8 @@ import ReviewsList from "./ReviewsList";
 import ReviewNewForm from "./ReviewNewForm";
 
 const GiraffeShowPage = (props) => {
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+
   const [giraffe, setGiraffe] = useState({
     id: null,
     name: "",
@@ -203,38 +205,84 @@ const GiraffeShowPage = (props) => {
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
   };
 
-  return (
-    <div className="cell auto page">
-      <div className="grid-x grid-margin-x grid-padding-y">
-        <div className="grid-x align-center cell small-6">
-          <img className="cell shrink giraffe-image" src={giraffe.image?.url} />
-        </div>
+  const onDeleteGiraffeClickHandler = (event) => {
+    fetch(`/api/v1/giraffes/${id}`, {
+      credentials: "same-origin",
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw error;
+        }
+      })
+      .then((response) => response.json())
+      .then((removeGiraffe) => {
+        if (!removeGiraffe.errors) {
+          setShouldRedirect(true);
+        }
+      })
+      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  };
 
-        <div className="cell small-6">
-          <div className="grid-y grid-padding-y" style={{ height: "100%" }}>
-            <h1 className="cell shrink">{giraffe.name}</h1>
-            <h4 className="cell auto">{giraffe.description}</h4>
+  if (shouldRedirect) {
+    return <Redirect to="/" />;
+  }
+
+  return (
+    <div>
+      <div className="cell auto page">
+        <div className="grid-x grid-margin-x grid-padding-y">
+          <div className="grid-x grid-margin-x cell">
+            <button
+              type="button"
+              className="button cell shrink"
+              id="delete-review"
+              onClick={onDeleteGiraffeClickHandler}
+            >
+              Delete Giraffe
+            </button>
+          </div>
+          <div className="grid-x align-center cell small-6">
+            <img
+              className="cell shrink giraffe-image"
+              src={giraffe.image?.url}
+            />
+          </div>
+
+          <div className="cell small-6">
+            <div className="grid-y grid-padding-y" style={{ height: "100%" }}>
+              <h1 className="cell shrink">{giraffe.name}</h1>
+              <h4 className="cell auto">{giraffe.description}</h4>
+            </div>
           </div>
         </div>
-      </div>
 
-      <ReviewNewForm
-        giraffeId={id}
-        errors={errors}
-        addNewReview={addNewReview}
-      />
-      <hr />
-      <div>
-        <p className="cell"> Reviews: </p>
-        <ReviewsList
-          reviews={giraffe.reviews}
-          handleVoteSubmit={handleVoteSubmit}
-          voteErrors={voteErrors}
-          editReview={editReview}
-          deleteReview={deleteReview}
+        <ReviewNewForm
+          giraffeId={id}
+          errors={errors}
+          addNewReview={addNewReview}
         />
+        <hr />
+        <div>
+          <p className="cell"> Reviews: </p>
+          <ReviewsList
+            reviews={giraffe.reviews}
+            handleVoteSubmit={handleVoteSubmit}
+            voteErrors={voteErrors}
+            editReview={editReview}
+            deleteReview={deleteReview}
+          />
+        </div>
+        <Link to="/giraffes">Back to Herd</Link>
       </div>
-      <Link to="/giraffes">Back to Herd</Link>
     </div>
   );
 };
