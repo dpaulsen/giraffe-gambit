@@ -9,7 +9,8 @@ const ReviewShowTile = (props) => {
   let commentDiv = null;
   let upDisplayImage = "";
   let downDisplayImage = "";
-
+  let buttonChangeGroup = null;
+  
   const onVoteClickHandler = (event) => {
     let voteChoice = null;
     if (event.currentTarget.id === "up-vote") {
@@ -78,29 +79,37 @@ const ReviewShowTile = (props) => {
     }
   };
 
+  if (props.review.userIsOwner || props.review.userIsAdmin) {
+    buttonChangeGroup = (
+      <>
+        <button
+          type="button"
+          className="button cell shrink"
+          id="edit-review"
+          onClick={props.onEditClickHandler}
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          className="button cell shrink"
+          id="delete-review"
+          onClick={props.onDeleteClickHandler}
+        >
+          Delete
+        </button>
+      </>
+    );
+  }
+
   return (
     <div className="grid-container">
       <div className="callout">
         <div className="grid-x grid-margin-x align-top">
-          <h6 className="cell small-12">Username</h6>
+          <h6 className="cell small-12">{props.review.ownerName}</h6>
           <h5 className="cell shrink">Rating:</h5>
           <h5 className="cell auto">{props.review.rating} out of 5</h5>
-          <button
-            type="button"
-            className="button cell shrink"
-            id="edit-review"
-            onClick={props.onEditClickHandler}
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            className="button cell shrink"
-            id="delete-review"
-            onClick={props.onDeleteClickHandler}
-          >
-            Delete
-          </button>
+          {buttonChangeGroup}
         </div>
         {commentDiv}
         <div className="grid-x grid-margin-x align-middle text-center">

@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
-  return (
+
+  return(
     <div className={props.classes}>
       <div className="grid-x grid-padding-x">
         <Link className="cell" to="/giraffes">

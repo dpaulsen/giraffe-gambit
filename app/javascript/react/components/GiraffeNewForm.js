@@ -63,6 +63,8 @@ const GiraffeNewForm = (props) => {
           setShouldRedirect(true);
         } else if (body.errors) {
           setErrors(body.errors);
+        } else if (body.signInError){
+          //props.history.go("/users/sing_in")
         } else {
           console.error("ERROR: Unexpected server response");
         }

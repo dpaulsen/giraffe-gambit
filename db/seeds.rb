@@ -13,6 +13,7 @@ u4.password =  "1234567"
 u4.save
 u5 = User.new(username: "George Washington", email: "GW@fake.com")
 u5.password =  "1234567"
+u5.role = "admin"
 u5.save
 
 Giraffe.destroy_all

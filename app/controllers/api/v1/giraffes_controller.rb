@@ -1,5 +1,6 @@
 class Api::V1::GiraffesController < ApiController
   skip_before_action :verify_authenticity_token, :only => :create
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
     render json: Giraffe.all
@@ -26,6 +27,14 @@ class Api::V1::GiraffesController < ApiController
     giraffe.destroy
     
     render json: giraffe 
+  end
+
+  protected
+
+  def authenticate_user
+    if !user_signed_in?
+      render json: {signInError: "You need to be signed in first"}
+    end
   end
 
   private 
