@@ -1,29 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
 
- // let newLink = 
+  // const [currentUser, setCurrentUser]=useState( {
+  //   username: "",
+  //   role: ""
+  // } )
+  // let newLink = ""
 
-   useEffect(() => {
-    fetch("/api/v1/user/role")
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          //debugger
-          let errorMessage = `${response.status} (${response.statusText})`,
-          error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        //debugger
-        setGiraffes(body);
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
-  }, []);
+  //  useEffect(() => {
+  //   fetch("/api/v1/user/role")
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response;
+  //       } else {
+  //         let errorMessage = `${response.status} (${response.statusText})`,
+  //         error = new Error(errorMessage);
+  //         throw error;
+  //       }
+  //     })
+  //     .then((response) => response.json())
+  //     .then((loginInfo) => {
+  //       //debugger
+  //       if (loginInfo != null){
+  //         setCurrentUser(loginInfo);
+  //       }
+  //     })
+  //     .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  // }, []);
+
+  // if (currentUser  || currentUser.role ==""){
+  //   //debugger
+  // }
 
   return(
     <div className={props.classes}>
