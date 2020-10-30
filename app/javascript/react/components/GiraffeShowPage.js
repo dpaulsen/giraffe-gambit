@@ -113,7 +113,7 @@ const GiraffeShowPage = (props) => {
         if (!review.errors) {
           setGiraffe({
             ...giraffe,
-            reviews: [...giraffe.reviews, review],
+            reviews: [review, ...giraffe.reviews],
           });
         } else if (review.errors) {
           setErrors(review.errors);
