@@ -8,11 +8,10 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-
   ## these may change based on authorization
   namespace :api do 
     namespace :v1 do
-      resources :giraffes, only: [:index, :show, :create] do
+      resources :giraffes, only: [:index, :show, :create, :destroy] do
         resources :reviews, only: [:create, :update, :destroy]
       end
       resources :votes, only:[:create, :index]
