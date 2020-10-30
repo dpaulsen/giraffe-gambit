@@ -2,35 +2,48 @@
 
 [![Codeship Status for dpaulsen/giraffe-gambit](https://app.codeship.com/projects/b9403c30-ece0-47d1-945e-652d8f6aeb24/status?branch=master)](https://app.codeship.com/projects/414696)
 
-~~~THE GREAT GIRAFFE GAMBIT~~~
+# GIRAFFE SPOT
 
-Description: A review site for rating Giraffes.  
+https://giraffe-spot.herokuapp.com/
 
-Authors: 
-Zachary Bradford
-Lucas Encarnacao
-Heidi Hood
-Daniel Paulsen
+### Description: 
+Giraffe Spot is a site for giraffe enthusiasts to share their
+favorite long-necked friends with the world. Giraffe lovers can upload images 
+of giraffes as well as leave helpful ratings! No more sleepless nights 
+browsing the internet for quality giraffe pics.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Authors: 
+- Zachary Bradford
+- Lucas Encarnacao
+- Heidi Hood
+- Daniel Paulsen
 
-Things you may want to cover:
+## Features 
+* Create an account
+* Add a new giraffe
+* Delete a giraffe
+* Add a review for a giraffe
+* Edit/Delete a review
+* Upvote/Downvote a review 
+* Admin functionality
 
-* Ruby version
+## Setup - to run this app locally 
+1. `bundle install`
+2. `yarn install`
+3. `bundle exec rake db:create`
+4. `bundle exec rake db:migrate`
+5. `bundle exec rake db:seed`
+6. `yarn run start`
+7. in a new terminal window `rails s`
+8. in browser navigate to localhost:3000
 
-* System dependencies
+## Testing - to run test files 
+* `bundle exec rspec`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Technologies
+* Ruby (version - 2.6.5)
+* Rails (version - 5.2.3)
+* React
+* CarrierWave
+* Fog-AWS
+* Foundation 
