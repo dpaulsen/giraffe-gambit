@@ -68,11 +68,11 @@ RSpec.describe Api::V1::GiraffesController, type: :controller do
       expect(returned_json["id"]).to eq first_giraffe.id
       expect(returned_json["description"]).to eq first_giraffe.description
 
-      expect(returned_json["reviews"].first["rating"]).to eq 5
-      expect(returned_json["reviews"].first["comment"]).to eq "Hugo is awesome!!!"
+      expect(returned_json["reviews"].second["rating"]).to eq 5
+      expect(returned_json["reviews"].second["comment"]).to eq "Hugo is awesome!!!"
 
-      expect(returned_json["reviews"].second["rating"]).to eq 3
-      expect(returned_json["reviews"].second["comment"]).to eq nil
+      expect(returned_json["reviews"].first["rating"]).to eq 3
+      expect(returned_json["reviews"].first["comment"]).to eq nil
     end
   end
 
