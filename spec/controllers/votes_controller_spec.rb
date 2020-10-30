@@ -163,7 +163,7 @@ RSpec.describe Api::V1::VotesController, type: :controller do
   
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      expect(returned_json["errors"]).to eq "User must exist and User can't be blank"
+      expect(returned_json["errors"]).to eq "You must be signed in to vote."
     end
   end
 end

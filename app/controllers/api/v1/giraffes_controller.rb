@@ -31,24 +31,15 @@ class Api::V1::GiraffesController < ApiController
 
   protected
 
-  # def authorize_user
-  #   if !user_signed_in? || !(current_user.role == "admin")
-  #     render json: {error: ["Only admins have access to this feature"]}
-  #   end
-  # end
-
   def authenticate_user
     if !user_signed_in?
-      render json: {error: ["You need to be signed in first"]}
+      render json: {signInError: "You need to be signed in first"}
     end
   end
-
 
   private 
 
   def giraffe_params
     params.permit(:name, :description, :image)
   end
-
-
 end

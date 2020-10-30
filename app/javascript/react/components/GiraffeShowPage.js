@@ -5,24 +5,27 @@ import ReviewNewForm from "./ReviewNewForm";
 
 const GiraffeShowPage = (props) => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
-
+  
   const [giraffe, setGiraffe] = useState({
     id: null,
     name: "",
     description: "",
     image: null,
+    userIsOwner: false,
+    userIsAdmin: false,
     reviews: [],
   });
-
+  
   const [voteErrors, setVoteErrors] = useState({
     message: "",
     reivewId: null,
   });
-
+  
   const [errors, setErrors] = useState("");
-
+  
   const id = props.match.params.id;
   let reviewHeader = null;
+  let deleteButtonDiv = null;
 
   const handleVoteSubmit = (reviewId, voteChoice) => {
     const votePayLoad = {
@@ -238,22 +241,28 @@ const GiraffeShowPage = (props) => {
   }
 
   if (giraffe.reviews.length > 0) {
-    reviewHeader = (<h4 className="cell"> Reviews: </h4>)
+    reviewHeader = <h4 className="cell"> Reviews: </h4>;
+  }
+
+  if (giraffe.userIsOwner || giraffe.userIsAdmin) {
+    deleteButtonDiv = (
+      <div className="grid-x grid-margin-x cell">
+        <button
+          type="button"
+          className="button cell shrink"
+          id="delete-review"
+          onClick={onDeleteGiraffeClickHandler}
+        >
+          Delete Giraffe
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="cell auto page">
       <div className="grid-x grid-margin-x grid-padding-y">
-        <div className="grid-x grid-margin-x cell">
-          <button
-            type="button"
-            className="button cell shrink"
-            id="delete-review"
-            onClick={onDeleteGiraffeClickHandler}
-          >
-            Delete Giraffe
-          </button>
-        </div>
+        {deleteButtonDiv}
         <div className="grid-x align-center cell small-6">
           <img className="cell shrink giraffe-image" src={giraffe.image?.url} />
         </div>
