@@ -18,3 +18,18 @@ a:hover {
   color: $dark-accent;
   text-decoration: underline;
 }
+
+hr {
+  border: 2px solid $dark-accent
+}
+
+.button {
+  font-size: 105%;
+  border-radius: 0.5rem;
+  background-color: $secondary;
+}
+
+.callout {
+  border-radius: 1rem;
+  border: 2px solid grey;
+}

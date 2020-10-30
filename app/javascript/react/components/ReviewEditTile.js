@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RatingRadioGroup from "./RatingRadioGroup";
 
-const ReviewEditForm = (props) => {
+const ReviewEditTile = (props) => {
   const [formFields, setFormFields] = useState({
     rating: props.review.rating.toString(),
     comment: props.review.comment !== null ? props.review.comment : "",
@@ -27,7 +27,7 @@ const ReviewEditForm = (props) => {
         <form onSubmit={handleSubmit}>
           <div className="grid-x grid-margin-x">
             <label className="cell small-2 text-right" htmlFor="rating">
-              Rating:
+              <h5>Rating:</h5>
             </label>
             <div id="rating" className="cell small-10 medium-8 large-6 grid-x">
               <RatingRadioGroup
@@ -38,7 +38,7 @@ const ReviewEditForm = (props) => {
           </div>
           <div className="grid-x grid-margin-x align-middle">
             <label className="cell small-2 text-right" htmlFor="comment">
-              Comment:
+              <h5>Comment:</h5>
             </label>
             <input
               className="cell auto field"
@@ -50,7 +50,7 @@ const ReviewEditForm = (props) => {
             />
           </div>
 
-          <div className="grid-x align-center">
+          <div className="grid-x grid-margin-x align-center">
             <input
               className="button cell shrink"
               type="submit"
@@ -70,4 +70,4 @@ const ReviewEditForm = (props) => {
   );
 };
 
-export default ReviewEditForm;
+export default ReviewEditTile;
