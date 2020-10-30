@@ -1,5 +1,6 @@
 class Api::V1::GiraffesController < ApiController
   skip_before_action :verify_authenticity_token, :only => :create
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
     render json: Giraffe.all
@@ -28,9 +29,26 @@ class Api::V1::GiraffesController < ApiController
     render json: giraffe 
   end
 
+  protected
+
+  # def authorize_user
+  #   if !user_signed_in? || !(current_user.role == "admin")
+  #     render json: {error: ["Only admins have access to this feature"]}
+  #   end
+  # end
+
+  def authenticate_user
+    if !user_signed_in?
+      render json: {error: ["You need to be signed in first"]}
+    end
+  end
+
+
   private 
 
   def giraffe_params
     params.permit(:name, :description, :image)
   end
+
+
 end
