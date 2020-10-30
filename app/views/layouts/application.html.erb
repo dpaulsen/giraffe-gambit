@@ -14,11 +14,14 @@
   <nav class="grid-x top-bar topbar-color text-center">
       <h1 class="cell small-6 small-offset-3 light-text-color"><a id="title" class="light-text-color" href="/">Giraffe Spot</a></h1>
     <section class="top-bar-section">
-      <ul class="right no-bullet">
+      <ul id="sign-in-background" class="right no-bullet">
         <%- if current_user -%>
-          <%- if current_user.profile_photo.url -%>
-            <%= image_tag current_user.profile_photo.url, class: "profile-photo" %>
-          <%- end -%>
+          <div class="grid-x grid-margin-x align-middle">
+            <h4 id="user-name" class="cell shrink light-text-color"><%= current_user[:username] %></h4>
+            <%- if current_user.profile_photo.url -%>
+              <%= image_tag current_user.profile_photo.url, id: "profile-photo", class: "cell shrink" %>
+            <%- end -%>
+          </div>
           <li class="topbar-color"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "light-text-color sign" %></li>
         <%- else -%>
           <li class="topbar-color"><%= link_to 'Sign Up', new_user_registration_path, class: "light-text-color sign" %></li>

@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import GiraffesIndexPage from "./GiraffesIndexPage";
 import GiraffeNewPage from "./GiraffeNewPage";
 import GiraffeShowPage from "./GiraffeShowPage";
+import AboutPage from "./AboutPage"
 import Navbar from "./Navbar";
 
 const Layout = (props) => {
@@ -18,10 +19,9 @@ const Layout = (props) => {
                 <Route exact path="/giraffes" component={GiraffesIndexPage} />
                 <Route exact path="/giraffes/new" component={GiraffeNewPage} />
                 <Route exact path="/giraffes/:id" component={GiraffeShowPage} />
+                <Route exact path="/about" component={AboutPage} />
               </Switch>
-              <div className="grid-x cell small-1">
-                <div className="cell auto small-offset-0 giraffe-neck"></div>
-              </div>
+              <div className="cell small-1 giraffe-neck"></div>
             </div>
           </div>
         </div>

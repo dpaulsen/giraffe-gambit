@@ -37,44 +37,46 @@ const ReviewNewForm = (props) => {
       </div>
     );
   }
-  
-  return (
-    <div className="grid-container">
-      <div className="callout">
-        <h5>Add a Review</h5>
-        <form onSubmit={handleSubmit}>
-          {errorsDiv}
 
-          <div className="grid-x grid-margin-x">
-            <label className="cell small-2 text-right" htmlFor="rating">
-              Rating:
-            </label>
-            <div id="rating" className="cell small-10 medium-8 large-6 grid-x">
-              <RatingRadioGroup
-                handleFieldChange={handleFieldChange}
-                state={formFields.rating}
-              />
-            </div>
-          </div>
-          <div className="grid-x grid-margin-x align-middle">
-            <label className="cell small-2 text-right" htmlFor="comment">
-              Comment:
-            </label>
-            <input
-              className="cell auto field"
-              type="text"
-              name="comment"
-              id="comment"
-              onChange={handleFieldChange}
-              value={formFields.comment}
+  return (
+    <div className="callout">
+      <h5>Add a Review</h5>
+      <form onSubmit={handleSubmit}>
+        {errorsDiv}
+
+        <div className="grid-x grid-margin-x">
+          <label className="cell small-2 text-right" htmlFor="rating">
+            <h5>Rating:</h5>
+          </label>
+          <div id="rating" className="grid-x cell small-10 medium-8">
+            <RatingRadioGroup
+              handleFieldChange={handleFieldChange}
+              state={formFields.rating}
             />
           </div>
+        </div>
+        <div className="grid-x grid-margin-x align-middle">
+          <label className="cell small-2 text-right" htmlFor="comment">
+            <h5>Comment:</h5>
+          </label>
+          <input
+            className="cell auto field"
+            type="text"
+            name="comment"
+            id="comment"
+            onChange={handleFieldChange}
+            value={formFields.comment}
+          />
+        </div>
 
-          <div className="grid-x align-center">
-            <input className="cell shrink" type="submit" value="Add Review" />
-          </div>
-        </form>
-      </div>
+        <div className="grid-x align-center">
+          <input
+            className="cell shrink button"
+            type="submit"
+            value="Add Review"
+          />
+        </div>
+      </form>
     </div>
   );
 };

@@ -15,6 +15,7 @@ const GiraffeNewForm = (props) => {
   const [errors, setErrors] = useState("");
 
   let errorsDiv = null;
+  let photoUploaded = null;
 
   const handleChange = (event) => {
     setFormFields({
@@ -81,6 +82,14 @@ const GiraffeNewForm = (props) => {
     );
   }
 
+  if (formFields.image != "") {
+    photoUploaded = (
+      <div className="grid-x align-center text-center">
+        <h5 className="cell shrink">Photo Uploaded: {formFields.image.path}</h5>
+      </div>
+    );
+  }
+
   return (
     <div className="grid-container">
       <form onSubmit={handleSubmit}>
@@ -88,7 +97,7 @@ const GiraffeNewForm = (props) => {
 
         <div className="grid-x grid-margin-x align-middle">
           <label className="cell small-4 text-right" htmlFor="name">
-            Name:
+            <h3>Name:</h3>
           </label>
           <input
             className="cell small-4 field"
@@ -101,7 +110,7 @@ const GiraffeNewForm = (props) => {
         </div>
         <div className="grid-x grid-margin-x align-middle">
           <label className="cell small-4 text-right" htmlFor="description">
-            Description:
+            <h3>Description:</h3>
           </label>
           <input
             className="cell small-4 field"
@@ -114,18 +123,24 @@ const GiraffeNewForm = (props) => {
         </div>
         <Dropzone onDrop={handleFileUpload}>
           {({ getRootProps, getInputProps }) => (
-            <section className="text-center">
+            <section className="grid-x shrink align-center text-center">
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop your long necked deer</p>
+                <h5 id="drop-zone" className="cell callout">
+                  Click here or drag 'n' drop to upload your long necked deer
+                  photo
+                </h5>
               </div>
             </section>
           )}
         </Dropzone>
 
+        {photoUploaded}
+
         <div className="grid-x align-center">
           <input
-            className="cell shrink"
+            id="submit-giraffe"
+            className="cell shrink button"
             type="submit"
             value="Add to the Herd"
           />

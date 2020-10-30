@@ -38,23 +38,22 @@ const ReviewShowTile = (props) => {
 
   if (props.review.comment !== "" && props.review.comment !== null) {
     commentDiv = (
-      <div className="grid-x grid-margin-x">
-        <h5 className="cell small-2">Comment:</h5>
-        <div className="callout cell small-12">{props.review.comment}</div>
+      <div className="grid-x">
+        <h5 id="comment-label" className="cell shrink">
+          Comment:
+        </h5>
+        <div className="cell auto callout">{props.review.comment}</div>
       </div>
     );
   }
 
   if (props.review?.myVote?.vote === "up") {
-    //user voted up
     upDisplayImage = upVoteImageClicked;
     downDisplayImage = downVoteImage;
   } else if (props.review?.myVote?.vote === "down") {
-    // user voted down
     upDisplayImage = upVoteImage;
     downDisplayImage = downVoteImageClicked;
   } else {
-    // user hasnt voted / taken back vote
     upDisplayImage = upVoteImage;
     downDisplayImage = downVoteImage;
   }
@@ -82,9 +81,10 @@ const ReviewShowTile = (props) => {
   return (
     <div className="grid-container">
       <div className="callout">
-        <div className="grid-x grid-margin-x align-middle">
+        <div className="grid-x grid-margin-x align-top">
+          <h6 className="cell small-12">Username</h6>
           <h5 className="cell shrink">Rating:</h5>
-          <h6 className="cell auto">{props.review.rating} out of 5</h6>
+          <h5 className="cell auto">{props.review.rating} out of 5</h5>
           <button
             type="button"
             className="button cell shrink"
@@ -104,10 +104,7 @@ const ReviewShowTile = (props) => {
         </div>
         {commentDiv}
         <div className="grid-x grid-margin-x align-middle text-center">
-          <div
-            id="up-vote-container"
-            className="grid-x cell shrink align-middle-center"
-          >
+          <div id="up-vote-container" className="grid-x cell shrink">
             <img
               src={upDisplayImage}
               id="up-vote"
@@ -118,12 +115,11 @@ const ReviewShowTile = (props) => {
             />
           </div>
 
-          <div className="cell small-1">{props.review.voteCount}</div>
+          <div className="cell small-1">
+            <h5 id="vote-count">{props.review.voteCount}</h5>
+          </div>
 
-          <div
-            id="down-vote-container"
-            className="grid-x cell shrink align-middle-center"
-          >
+          <div id="down-vote-container" className="grid-x cell shrink">
             <img
               src={downDisplayImage}
               id="down-vote"

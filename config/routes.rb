@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/giraffes', to: 'homes#index'
   get '/giraffes/new', to: 'homes#index'
   get '/giraffes/:id', to: "homes#index"
+  get '/about', to: "homes#index"
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
