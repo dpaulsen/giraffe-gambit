@@ -1,5 +1,5 @@
 User.destroy_all
-u1 = User.new(username: "Ted Francis", email: "ted@fake.com")
+u1 = User.new(username: "Ted F", email: "ted@fake.com")
 u1.password =  "1234567"
 u1.save
 u2 = User.new(username: "Josh M", email: "josh@fake.com")
@@ -53,7 +53,3 @@ r9 = Review.find_or_create_by!(owner: u3, giraffe: g9, rating: 2, comment: "Meh.
 r10 = Review.find_or_create_by!(owner: u1, giraffe: g10, rating: 4, comment: "Pretty solid, still needs some work.")
 r11 = Review.find_or_create_by!(owner: u5, giraffe: g11, rating: 1, comment: "You should try harder with your next submission, this just isn't up to standard.")
 r12 = Review.find_or_create_by!(owner: u4, giraffe: g12, rating: 3, comment: "this is the most average giraffe I've ever seen, sad!")
-
-
-
-
