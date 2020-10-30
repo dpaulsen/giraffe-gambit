@@ -112,14 +112,14 @@ const GiraffeNewForm = (props) => {
           <label className="cell small-4 text-right" htmlFor="description">
             <h3>Description:</h3>
           </label>
-          <input
-            className="cell small-4 field"
-            type="text"
-            name="description"
-            id="description"
-            onChange={handleChange}
-            value={formFields.description}
-          />
+          <div className="cell small-4">
+            <textarea
+              id="description"
+              name="description"
+              onChange={handleChange}
+              value={formFields.description}
+            />
+          </div>
         </div>
         <Dropzone onDrop={handleFileUpload}>
           {({ getRootProps, getInputProps }) => (
