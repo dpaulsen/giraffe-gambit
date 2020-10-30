@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ReviewsList from "./ReviewsList";
 import ReviewNewForm from "./ReviewNewForm";
 
@@ -22,6 +22,7 @@ const GiraffeShowPage = (props) => {
   const [errors, setErrors] = useState("");
 
   const id = props.match.params.id;
+  let reviewHeader = null;
 
   const handleVoteSubmit = (reviewId, voteChoice) => {
     const votePayLoad = {
@@ -236,53 +237,52 @@ const GiraffeShowPage = (props) => {
     return <Redirect to="/" />;
   }
 
+  if (giraffe.reviews.length > 0) {
+    reviewHeader = (<h4 className="cell"> Reviews: </h4>)
+  }
+
   return (
-    <div>
-      <div className="cell auto page">
-        <div className="grid-x grid-margin-x grid-padding-y">
-          <div className="grid-x grid-margin-x cell">
-            <button
-              type="button"
-              className="button cell shrink"
-              id="delete-review"
-              onClick={onDeleteGiraffeClickHandler}
-            >
-              Delete Giraffe
-            </button>
-          </div>
-          <div className="grid-x align-center cell small-6">
-            <img
-              className="cell shrink giraffe-image"
-              src={giraffe.image?.url}
-            />
-          </div>
-
-          <div className="cell small-6">
-            <div className="grid-y grid-padding-y" style={{ height: "100%" }}>
-              <h1 className="cell shrink">{giraffe.name}</h1>
-              <h4 className="cell auto">{giraffe.description}</h4>
-            </div>
-          </div>
+    <div className="cell auto page">
+      <div className="grid-x grid-margin-x grid-padding-y">
+        <div className="grid-x grid-margin-x cell">
+          <button
+            type="button"
+            className="button cell shrink"
+            id="delete-review"
+            onClick={onDeleteGiraffeClickHandler}
+          >
+            Delete Giraffe
+          </button>
+        </div>
+        <div className="grid-x align-center cell small-6">
+          <img className="cell shrink giraffe-image" src={giraffe.image?.url} />
         </div>
 
-        <ReviewNewForm
-          giraffeId={id}
-          errors={errors}
-          addNewReview={addNewReview}
-        />
-        <hr />
-        <div>
-          <p className="cell"> Reviews: </p>
-          <ReviewsList
-            reviews={giraffe.reviews}
-            handleVoteSubmit={handleVoteSubmit}
-            voteErrors={voteErrors}
-            editReview={editReview}
-            deleteReview={deleteReview}
-          />
+        <div className="cell small-6">
+          <div className="grid-y grid-padding-y" style={{ height: "100%" }}>
+            <h1 className="cell shrink">{giraffe.name}</h1>
+            <h4 className="cell auto">{giraffe.description}</h4>
+          </div>
         </div>
-        <Link to="/giraffes">Back to Herd</Link>
       </div>
+
+      <ReviewNewForm
+        giraffeId={id}
+        errors={errors}
+        addNewReview={addNewReview}
+      />
+      <hr />
+      <div>
+        {reviewHeader}
+        <ReviewsList
+          reviews={giraffe.reviews}
+          handleVoteSubmit={handleVoteSubmit}
+          voteErrors={voteErrors}
+          editReview={editReview}
+          deleteReview={deleteReview}
+        />
+      </div>
+      <Link to="/giraffes">Back to Herd</Link>
     </div>
   );
 };

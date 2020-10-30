@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/giraffes', to: 'homes#index'
   get '/giraffes/new', to: 'homes#authenticated'
   get '/giraffes/:id', to: "homes#index"
+  get '/about', to: "homes#index"
 
   get '/api/v1/user/role', to: "api/v1/user#role"
 

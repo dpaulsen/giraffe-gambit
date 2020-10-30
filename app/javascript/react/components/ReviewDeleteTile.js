@@ -1,7 +1,7 @@
 import React from "react";
 
-const ReviewEditForm = (props) => {
-  let errorsDiv = null;
+const ReviewDeleteTile = (props) => {
+  let commentDiv = null;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -9,38 +9,42 @@ const ReviewEditForm = (props) => {
     props.deleteReview(formPayLoad);
   };
 
+  if (props.review.comment !== "" && props.review.comment !== null) {
+    commentDiv = (
+      <div className="grid-x">
+        <h5 id="comment-label" className="cell shrink">
+          Comment:
+        </h5>
+        <div className="cell auto callout">{props.review.comment}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="grid-container">
       <div className="callout">
-        <h5>Delete Review</h5>
-        <form onSubmit={handleSubmit}>
-          <div className="grid-x grid-margin-x">
-            <h6 className="cell auto">
-              Rating: {props.review.rating} out of 5
-            </h6>
-          </div>
-          <div className="grid-x grid-margin-x">
-            <h5 className="cell small-2">Comment:</h5>
-            <div className="callout cell small-12">{props.review.comment}</div>
-          </div>
-          <div className="grid-x align-center">
-            <input
-              className="button cell shrink"
-              type="submit"
-              value="Yes Delete"
-            />
-            <button
-              className="button cell shrink"
-              type="button"
-              onClick={props.onCancelDeleteClickHandler}
-            >
-              No! Keep
-            </button>
-          </div>
-        </form>
+        <div className="grid-x grid-margin-x align-top">
+          <h5 className="cell shrink">Rating:</h5>
+          <h5 className="cell auto">{props.review.rating} out of 5</h5>
+          <button
+            className="button cell shrink"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Yes Delete
+          </button>
+          <button
+            className="button cell shrink"
+            type="button"
+            onClick={props.onCancelDeleteClickHandler}
+          >
+            No! Keep
+          </button>
+        </div>
+        {commentDiv}
       </div>
     </div>
   );
 };
 
-export default ReviewEditForm;
+export default ReviewDeleteTile;
